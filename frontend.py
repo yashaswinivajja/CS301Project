@@ -65,6 +65,28 @@ def viewProducts():
       for row in d:
 	      print(row)
   if cc=='3':
-       
-  
-		    
+
+def addProduct():
+	n=int(input('Enter number of products to be inserted: '))
+	for j in range(n):
+		t=()
+		proid = input('Product ID : ')
+		prname = input("Product Name: ")
+		prsell = int(input('SellerID: '))
+		pprice = int(input('MRP : '))
+		prcat = int(input('CategoryID: '))
+		pstk = int(input('Stock : '))
+		pbrand = input('Brand: ')
+		t = (proid, prname, prsell, pprice, prcat, pstk, pbrand)
+		qry = 'INSERT into Product values(%s,%s,%s,%s,%s,%s,%s);'
+		mycur.execute(qry, t)
+		mycon.commit()
+		print("Product Added")
+
+def delProduct():
+	delete=input("Enter ID of product to be deleted")
+	qry = 'delete from Product where ProductID=%s;'
+	mycur.execute(qry, (delt,))
+	mycon.commit()
+	print("Product is deleted")
+
