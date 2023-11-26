@@ -82,7 +82,7 @@ def addProduct():
 		mycur.execute(qry, t)
 		mycon.commit()
 		print("Product Added")
-
+					
 def delProduct():
 	delete=input("Enter ID of product to be deleted")
 	qry = 'delete from Product where ProductID=%s;'
@@ -90,3 +90,46 @@ def delProduct():
 	mycon.commit()
 	print("Product is deleted")
 
+def emp_sign_in():
+	try:
+		ask = input('Enter ID to sign in to the account: ')
+		qry = 'select emp_id from employee;'
+		mycur.execute(qry)
+		d = mycur.fetchall()
+		lis = []
+		for i in d:
+			lis.append(i[0])
+		if ask not in lis:
+			print('Enter the correct id')
+		else:
+			while True:
+				space()
+				ccc = input("1. Update delivered records\n2. Add a New Product \n3. Delete a product \nEnter 'Back' to logout: ")
+				if ccc == '1':
+
+print('WELCOME !')
+while True:
+	print("Enter your role:\n(A). Customer\n(B). Employee\n(C). Employer\n(D). Seller\nenter e to exit")
+	ch = input('Enter: ')
+	try:
+		if ch in 'aA':
+			print(" 1. Create Account\n 2.Sign In into existing account")
+			choice = input('enter- ')
+			if choice == '1':
+				newCustAcc()
+			elif choice == '2':
+				sign_in()
+			else:
+				print('Enter correct choice')
+		if ch in 'bB':
+			emp_sign_in()
+		if ch in 'cC':
+			employer()
+		if ch in 'dD':
+			seller()
+		elif ch.lower() == "e":
+			print("Thankyou for visiting !")
+			break
+	except Exception:
+		print('Give the right input')
+	space()
