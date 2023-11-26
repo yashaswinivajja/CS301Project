@@ -70,30 +70,32 @@ def addProduct():
 	n=int(input('Enter number of products to be inserted: '))
 	for j in range(n):
 		t=()
-		proid = input('Product ID : ')
+		proid = int(input('Product ID : '))
 		prname = input("Product Name: ")
 		prsell = int(input('SellerID: '))
 		pprice = int(input('MRP : '))
 		prcat = int(input('CategoryID: '))
-		pstk = int(input('Stock : '))
+		pstk = input('Stock : ')
 		pbrand = input('Brand: ')
 		t = (proid, prname, prsell, pprice, prcat, pstk, pbrand)
-		qry = 'INSERT into Product values(%s,%s,%s,%s,%s,%s,%s);'
+		qry = 'INSERT into Product values(%d,%s,%d,%d,%d,%s,%s);'
 		mycur.execute(qry, t)
 		mycon.commit()
 		print("Product Added")
 					
 def delProduct():
-	delete=input("Enter ID of product to be deleted")
-	qry = 'delete from Product where ProductID=%s;'
+	delete=int(input("Enter ID of product to be deleted"))
+	qry = 'delete from Product where ProductID=%d;'
 	mycur.execute(qry, (delt,))
 	mycon.commit()
-	print("Product is deleted")
+	print("Product is deleted")					
 
-def emp_sign_in():
+def addSeller(): 
+		
+def sellerSignIn():
 	try:
-		ask = input('Enter ID to sign in to the account: ')
-		qry = 'select emp_id from employee;'
+	        ask = int(input('Enter ID to sign in to the account: '))
+		qry = 'SELECT SellerID from Seller;'
 		mycur.execute(qry)
 		d = mycur.fetchall()
 		lis = []
@@ -103,18 +105,34 @@ def emp_sign_in():
 			print('Enter the correct id')
 		else:
 			while True:
-				space()
-				ccc = input("1. Update delivered records\n2. Add a New Product \n3. Delete a product \nEnter 'Back' to logout: ")
+				ccc = input("1. Update delivered records\n2. Add a New Product \n3. Delete a product\n4. View stock\n5. Collection\nEnter 'Back' to logout: ")
 				if ccc == '1':
+					
+				if ccc=='2':
+					addProduct()
+				if ccc='3':
+					deleteProduct()
+				if ccc='4':
+					pid = int(input('Enter ProductID to view stock: '))
+					qry='SELECT stock from Product where ProductID = %d;'
+					mycur.execute(qry,pid)
+					stk = mycur.fetchall()
+					print('Stock of the product with  productID:%d = %s' %pid, %stk)
+				elif ccc.lower() == 'back':
+					print("Successfully logged out ")
+					break
+	except Exception:
+		print('Give the correct input')	
+
 
 print('WELCOME !')
 while True:
-	print("Enter your role:\n(A). Customer\n(B). Employee\n(C). Employer\n(D). Seller\nenter e to exit")
+	print("Enter your role:\n(A). Customer\n(B). SellerSales\n(C). SellerFinance\nEnter e to exit")
 	ch = input('Enter: ')
 	try:
 		if ch in 'aA':
-			print(" 1. Create Account\n 2.Sign In into existing account")
-			choice = input('enter- ')
+			print(" 1. Create Account\n2. Sign In into existing account")
+			choice = input('enter: ')
 			if choice == '1':
 				newCustAcc()
 			elif choice == '2':
