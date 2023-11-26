@@ -38,27 +38,37 @@ def newCustAcc():
 
 def custSignIn():
 
-def purchase():
-	
+def myPurchase():
+	ch= int(input("Enter your choice:\n1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase"))
+	if ch==1:
+		
 def writeReview():
 
-def viewCart():
-
+def cartOperations():
+	ch=int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now')
+	if ch == 1:
+		addProduct(2)
+	if ch == 2:
+		delProduct(2)
+	if ch == 3:
+		
 def viewProduct():
+	while 1:
 	print('''
 	1) all products
 	2) By Category
 	3) By price
 	4) By search
+ 	5) Exit
 	''')
 	cc= int(input('Enter your view: '))
-	if cc=='1':
+	if cc==1:
 		qry= 'SELECT * from Product;'
     		mycur.execute(qry)
     		d = mycur.fetchall()
     		for row in d:
 	  		print(row)
-  	if cc=='2':
+  	if cc==2:
     		c=input('Enter the Category: ')
     		qry='SELECT CategoryID from Category where CategoryName= %s;'
    		mycur.execute(qry,c)
@@ -68,10 +78,25 @@ def viewProduct():
       			d=mycur.fetchall()
       			for row in d:
 	      			print(row)
-  	if cc=='3':
+  	if cc==3:
+		c= int(input('Enter Max price: '))
+		qry = 'SELECT * from Product where MRP <= %d;'
+		mycur.execute(qry,(c,))
+		d=mycur.fetchall()
+		for row in d:
+			print(row)
+	if cc==4:
+		c=input('Enter Product Name: ')
+      		qry= 'SELECT * from Product where Product name = %s group by product name;'		
+   		mycur.execute(qry,c)
+		d=mycur.fetchall()
+      		for row in d:
+	      		print(row)
+	if cc== 5:
+		break
 
-def addProduct():
-	if role == "Seller":
+def addProduct(choice):
+	if choice == 1:
 	n=int(input('Enter number of products to be inserted: '))
 	for j in range(n):
 		t=()
@@ -87,16 +112,16 @@ def addProduct():
 		mycur.execute(qry, t)
 		mycon.commit()
 		print("Product Added")
-	if role == "Customer"	
+	if choice == 2:
 	
-def delProduct():
-	if role == "Seller":
+def delProduct(choice):
+	if choice == 1:
 	delete=int(input("Enter ID of product to be deleted"))
 	qry = 'delete from Product where ProductID=%d;'
 	mycur.execute(qry, (delt,))
 	mycon.commit()
 	print("Product is deleted")
-	if role == "Customer":
+	if choice == 2:
 
 def addSeller(): 
 	n=int(input('Enter number of sellers to add: '))
@@ -125,19 +150,18 @@ def sellerSignIn():
 			print('Enter the correct id')
 		else:
 			while True:
-				ccc = input("1. Update delivered records\n2. Add a New Product \n3. Delete a product\n4. View stock\n5. Collection\nEnter 'Back' to logout: ")
-				if ccc == '1':
-					
-				if ccc=='2':
-					addProduct()
+				ccc = input("1. Add a New Product \n2. Delete a product\n3. View stock\n4. Collection\nEnter 'Back' to logout: ")
+				if ccc=='1':
+					addProduct(1)
+				if ccc='2':
+					deleteProduct(1)
 				if ccc='3':
-					deleteProduct()
-				if ccc='4':
 					pid = int(input('Enter ProductID to view stock: '))
 					qry='SELECT stock from Product where ProductID = %d;'
 					mycur.execute(qry,pid)
 					stk = mycur.fetchall()
 					print('Stock of the product with  productID:%d = %s' %pid, %stk)
+					
 				elif ccc.lower() == 'back':
 					print("Successfully logged out ")
 					break
