@@ -414,7 +414,8 @@ while True:
 	print('''Are you a :												 
 (A). Customer
 (B). Employee
-(C). Seller
+(C). Employer
+(D). Seller
 enter e to exit ''')
 	ch = input('Enter - ')
 	try:
