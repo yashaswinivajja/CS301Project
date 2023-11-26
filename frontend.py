@@ -50,14 +50,21 @@ def viewProducts():
   cc= int(input('Enter your view: '))
   if cc=='1':
     qry= 'SELECT * from Product;'
+    mycur.execute(qry)
+    d = mycur.fetchall()
+    for row in d:
+	  print(row)
   if cc=='2':
     c=input('Enter the Category: ')
     qry='SELECT CategoryID from Category where CategoryName= %s;'
     mycur.execute(qry,c)
-    if mycur.fetchall!= NULL:
+    if (ccc=mycur.fetchall)!= NULL:
       qry= 'SELECT * from Product where CategoryID = %s group by category;'
-  mycur.execute(qry)
-	d = mycur.fetchall()
-	for row in d:
-		print(row)
-	mycon.commit()
+      mycur.execute(qry,ccc)
+      d=mycur.fetchall()
+      for row in d:
+	      print(row)
+  if cc=='3':
+       
+  
+		    
