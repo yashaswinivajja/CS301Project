@@ -55,3 +55,18 @@ insert into Address values (122, 'Redwood Road', 'Apt 1212', 'Villagetown', 'Sta
 insert into Address values (213, 'Maple Avenue', 'Apt 1313', 'Cityville', 'StateM', 890123, 3113);
 insert into Address values (414, 'Birch Lane', 'Apt 1414', 'Townton', 'StateN', 234567, 3114);
 insert into Address values (195, 'Sycamore Street', 'Apt 1515', 'Citytown', 'StateO', 876543, 3115);
+
+
+insert into Product values (1234, 'Quartz wall clock', 1328, 1199, 1000, 100, 'Oreva');
+insert into Product values (1343, 'Floral leaf metal clock', 1217, 1599, 1000, 70, 'Zintex');
+insert into Product values (8901, 'Wooden sailing ship', 6128, 2999, 1011, 47, 'Xtore');
+insert into Product values (9872, 'Nantan Dog', 5323, 1999, 1011, 30, 'Cpensus');
+insert into Product values (1278, 'New born baby posters', 2120, 799, 1004, 500, 'Printnet');
+insert into Product values (1564, 'Scented candles', 6128, 1499, 1010, 300, 'Solimo');
+insert into Product values (1894, 'Tea Lights', 6128, 199, 1010, 500, 'Prosperro');
+insert into Product values (0934, 'Abstract paintings', 3210, 1099, 1002, 76, 'Krafts');
+insert into Product values (1834, 'Seven horses', 1217, 1399, 1002, 20, 'CasperMe');
+insert into Product values (904, 'Vinyl tree with birds', 6128, 899, 1005, 540, 'Decals');
+insert into Product values (984, 'Evil eye wind chime', 2120, 2130, 1012, 43, '9Dzine');
+insert into Product values (1234, 'Quartz wall clock', 1328, 1199, 1000, 100, 'Oreva');
+
