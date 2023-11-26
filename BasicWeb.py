@@ -38,6 +38,8 @@ def newCustAcc():
 
 def custSignIn():
 
+def purchase():
+	
 def writeReview():
 
 def viewCart():
@@ -97,7 +99,19 @@ def delProduct():
 	if role == "Customer":
 
 def addSeller(): 
-		
+	n=int(input('Enter number of sellers to add: '))
+	for i in range(n):
+		tuple=()
+		sid = int(input('Enter SellerID: '))
+		name = input('Enter Seller Name: ')
+		phno = int(input('Enter phone number: '))
+		tots = int(input('Enter total sales: ')
+		tuple = (sid, name, phno, tots)
+		qry = 'INSERT into Seller values(%d,%s,%d,%d);'
+		mycur.execute(qry,tuple)
+		mycon.commit()
+		print("Seller added")
+	
 def sellerSignIn():
 	try:
 	        ask = int(input('Enter ID to sign in to the account: '))
