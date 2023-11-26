@@ -38,3 +38,20 @@ insert into Customer values (3112, 'Liam', 'Michael', 'Martin', 'liam@email.com'
 insert into Customer values (3113, 'Mia', 'Nicole', 'Garcia', 'mia@email.com', '1989-07-30', 2221113333, 32);
 insert into Customer values (3114, 'Noah', 'Alexander', 'Cooper', 'noah@email.com', '1994-11-11', 9991112222, 27);
 insert into Customer values (3115, 'Olivia', 'Rose', 'Russell', 'olivia@email.com', '1986-05-08', 6662223333, 36);
+
+
+insert into Address values (341, 'Main Street', 'Apt 101', 'Cityville', 'StateA', 123456, 3101);
+insert into Address values (352, 'Broadway', 'Apt 202', 'Townburg', 'StateB', 654321, 3102);
+insert into Address values (353, 'Oak Avenue', 'Apt 303', 'Villagetown', 'StateC', 987654, 3103);
+insert into Address values (234, 'Pine Street', 'Apt 404', 'Cityburg', 'StateD', 234567, 3104);
+insert into Address values (645, 'Maple Lane', 'Apt 505', 'Townton', 'StateE', 876543, 3105);
+insert into Address values (623, 'Cedar Road', 'Apt 606', 'Villageville', 'StateF', 345678, 3106);
+insert into Address values (724, 'Elm Street', 'Apt 707', 'Citytown', 'StateG', 567890, 3107);
+insert into Address values (248, 'Willow Lane', 'Apt 808', 'Townville', 'StateH', 890123, 3108);
+insert into Address values (942, 'Sunset Boulevard', 'Apt 909', 'Villagetown', 'StateI', 345678, 3109);
+insert into Address values (120, 'Highland Avenue', 'Apt 1010', 'Cityburg', 'StateJ', 789012, 3110);
+insert into Address values (141, 'Green Street', 'Apt 1111', 'Townville', 'StateK', 123456, 3111);
+insert into Address values (122, 'Redwood Road', 'Apt 1212', 'Villagetown', 'StateL', 567890, 3112);
+insert into Address values (213, 'Maple Avenue', 'Apt 1313', 'Cityville', 'StateM', 890123, 3113);
+insert into Address values (414, 'Birch Lane', 'Apt 1414', 'Townton', 'StateN', 234567, 3114);
+insert into Address values (195, 'Sycamore Street', 'Apt 1515', 'Citytown', 'StateO', 876543, 3115);
