@@ -2,71 +2,74 @@ import mysql.connector
 mycon=mysql.connector.conect(host='localhost', user='root', password='password', database='shopping')
 mycur=mycon.cursor
 
-def space():
-  for i in range(1):
-    print()
-
 def check():
-  qry='SELECT CustomerID from Customer;'
-  mycur.execute(qry)
-  d=mycur.fetchall()
-  listOfIDs=[]
-  for ids in d:
-    listOfIDs.append(d[0])
-  mycon.commit()
-  return listOfIDs
+	qry='SELECT CustomerID from Customer;'
+  	mycur.execute(qry)
+	d=mycur.fetchall()
+  	listOfIDs=[]
+  	for ids in d:
+    		listOfIDs.append(d[0])
+  	mycon.commit()
+  	return listOfIDs
 
 def newCustAcc():
-  list_of_ids = check()
-  i=True
-  while i:
-    custid = int(input('Enter your Customer id: '))
-    if custid in list_of_ids:
-      print('Customer ID already exists. Please choose another')
-    else:
-      print('* indicates mmandatory')
-      cdetails=()
-      cfname= input('Enter First Name*: ')
-      cmname= input('Enter Middle Name: ')
-      clname= input('Enter Last Name: ')
-      cmail= input('Enter MailID: ')
-      cdob= input('Enter Date of Birth: ')
-      cphone= input('Enter Phone number*: ')
-      cage= input('Enter Age: ')
-      cdetails=(cfname, cmname, clname, cmail, cdob, cphone, cage)
-      qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);'
-      mycur.execute(qry,cdetails)
-      mycon.commit()
-      print('Customer details entered')
-      i=False
+  	list_of_ids = check()
+  	i=True
+  	while i:
+    		custid = int(input('Enter your Customer id: '))
+    	if custid in list_of_ids:
+      		print('Customer ID already exists. Please choose another')
+    	else:
+      		print('* indicates mmandatory')
+      		cdetails=()
+      		cfname= input('Enter First Name*: ')
+      		cmname= input('Enter Middle Name: ')
+      		clname= input('Enter Last Name: ')
+      		cmail= input('Enter MailID: ')
+      		cdob= input('Enter Date of Birth: ')
+      		cphone= input('Enter Phone number*: ')
+      		cage= input('Enter Age: ')
+      		cdetails=(cfname, cmname, clname, cmail, cdob, cphone, cage)
+      		qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);'
+      		mycur.execute(qry,cdetails)
+      		mycon.commit()
+      		print('Customer details entered')
+     		i=False
 
-def viewProducts():
-  print('''
-  1) all products
-  2) By Category
-  3) By price
-  4) By search
-  ''')
-  cc= int(input('Enter your view: '))
-  if cc=='1':
-    qry= 'SELECT * from Product;'
-    mycur.execute(qry)
-    d = mycur.fetchall()
-    for row in d:
-	  print(row)
-  if cc=='2':
-    c=input('Enter the Category: ')
-    qry='SELECT CategoryID from Category where CategoryName= %s;'
-    mycur.execute(qry,c)
-    if (ccc=mycur.fetchall)!= NULL:
-      qry= 'SELECT * from Product where CategoryID = %s group by category;'
-      mycur.execute(qry,ccc)
-      d=mycur.fetchall()
-      for row in d:
-	      print(row)
-  if cc=='3':
+def custSignIn():
+
+def writeReview():
+
+def viewCart():
+
+def viewProduct():
+	print('''
+	1) all products
+	2) By Category
+	3) By price
+	4) By search
+	''')
+	cc= int(input('Enter your view: '))
+	if cc=='1':
+		qry= 'SELECT * from Product;'
+    		mycur.execute(qry)
+    		d = mycur.fetchall()
+    		for row in d:
+	  		print(row)
+  	if cc=='2':
+    		c=input('Enter the Category: ')
+    		qry='SELECT CategoryID from Category where CategoryName= %s;'
+   		mycur.execute(qry,c)
+    		if (ccc=mycur.fetchall)!= NULL:
+      			qry= 'SELECT * from Product where CategoryID = %s group by category;'
+      			mycur.execute(qry,ccc)
+      			d=mycur.fetchall()
+      			for row in d:
+	      			print(row)
+  	if cc=='3':
 
 def addProduct():
+	if role == "Seller":
 	n=int(input('Enter number of products to be inserted: '))
 	for j in range(n):
 		t=()
@@ -82,13 +85,16 @@ def addProduct():
 		mycur.execute(qry, t)
 		mycon.commit()
 		print("Product Added")
-					
+	if role == "Customer"	
+	
 def delProduct():
+	if role == "Seller":
 	delete=int(input("Enter ID of product to be deleted"))
 	qry = 'delete from Product where ProductID=%d;'
 	mycur.execute(qry, (delt,))
 	mycon.commit()
-	print("Product is deleted")					
+	print("Product is deleted")
+	if role == "Customer":
 
 def addSeller(): 
 		
@@ -127,10 +133,10 @@ def sellerSignIn():
 
 print('WELCOME !')
 while True:
-	print("Enter your role:\n(A). Customer\n(B). SellerSales\n(C). SellerFinance\nEnter e to exit")
+	print("Choose your role: Customer\SellerSales\SellerFinance")
 	ch = input('Enter: ')
 	try:
-		if ch in 'aA':
+		if ch.lower() == "Customer":
 			print(" 1. Create Account\n2. Sign In into existing account")
 			choice = input('enter: ')
 			if choice == '1':
@@ -139,7 +145,7 @@ while True:
 				sign_in()
 			else:
 				print('Enter correct choice')
-		if ch in 'bB':
+		if ch.lower() == Seller
 			emp_sign_in()
 		if ch in 'cC':
 			employer()
