@@ -43,30 +43,39 @@ def custAcc(opt,custoID):
     if opt == 1:
         qry = 'SELECT * from Customer where customerID = %s;'
         mycur.execute(qry,(custoID,))
-        d = mycur.fetchall()
-        d[0] = custoID
+        dt = mycur.fetchall()
+        d0=[t[0] for t in dt]
+        d1=[t[1] for t in dt]
+        d2=[t[2] for t in dt]
+        d3=[t[3] for t in dt]
+        d4=[t[4] for t in dt]
+        d5=[t[5] for t in dt]
+        d6=[t[6] for t in dt]
+        d7=[t[7] for t in dt]
+        d0[0] = custoID
         print('1)First Name\n2) Middle Name\n3) Last Name\n4) MailID\n5) Date of Birth\n6)Phone number\n7)Age\n8)No edit')
         p = int(input('Enter number of details to edit: '))
         for i in range(p):
             ch = input('Enter the detail number to edit: ')
             if ch == 1:
-                d[1] = input('Enter First name: ')
+                d1[0] = input('Enter First name: ')
             if ch == 2:
-                d[2] = input('Enter Middle name: ') 
+                d2[0] = input('Enter Middle name: ') 
             if ch == 3:
-                d[3] = input('Enter Last Name: ')
+                d3[0] = input('Enter Last Name: ')
             if ch == 4:
-                d[4] = input('Enter MailID: ')
+                d4[0] = input('Enter MailID: ')
             if ch == 5:
-                d[5] = input('Enter Date of Birth: ')
+                d5[0] = input('Enter Date of Birth: ')
             if ch == 6:
-                d[6] = input('Enter Phone number: ')
+                d6[0] = input('Enter Phone number: ')
             if ch == 7:
-                d[7] = input('Enter Age: ')
+                d7[0] = input('Enter Age: ')
             if ch == 8:
                 break
             else:
                 print('Enter correct choice')
+            d=(d0[0], d1[0], d2[0], d3[0], d4[0], d5[0], d6[0], d7[0])
             if (ch<9 & ch>0):
                 qry = 'DELETE from Customer where CustomerID = %s;'
                 mycur.execute(qry,(custoID,))
