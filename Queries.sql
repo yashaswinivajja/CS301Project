@@ -77,25 +77,25 @@ insert into Product values (328, 'Cherry Blossom tree lamp', 1100, 999, 1003, 50
 insert into Product values (765, 'Macrame wall hanging', 3210, 599, 1007, 56, 'CraftVatika');
 
 
-insert into Cart values (234, 3114, 9872, 2);
-insert into Cart values (234, 3114, 765, 1);
-insert into Cart values (678, 3109, 0934, 2);
-insert into Cart values (6546, 3104, 8901, 1);
-insert into Cart values (487, 3105, 678, 5);
-insert into Cart values (2342, 3106, 1564, 4);
-insert into Cart values (6453, 3101, 328, 2);
-insert into Cart values (6453, 3101, 904, 2);
-insert into Cart values (6753, 3108, 3434, 4);
-insert into Cart values (3453, 3102, 1834, 1);
-insert into Cart values (1281, 3107, 1278, 2);
-insert into Cart values (5760, 3103, 654, 2);
-insert into Cart values (3457, 3110, 2349, 3);
-insert into Cart values (3457, 3110, 984, 4);
-insert into Cart values (3420, 3111, 1343, 2);
-insert into Cart values (2243, 3112, 1894, 5);
-insert into Cart values (3847, 3113, 6234, 2);
-insert into Cart values (457, 3115, 1234, 1);
-insert into Cart values (457, 3115, 984, 2);
+insert into Cart values (4113, 3114, 9872, 2);
+insert into Cart values (4113, 3114, 765, 1);
+insert into Cart values (9013, 3109, 0934, 2);
+insert into Cart values (4013, 3104, 8901, 1);
+insert into Cart values (5013, 3105, 678, 5);
+insert into Cart values (6013, 3106, 1564, 4);
+insert into Cart values (1013, 3101, 328, 2);
+insert into Cart values (1013, 3101, 904, 2);
+insert into Cart values (8013, 3108, 3434, 4);
+insert into Cart values (2013, 3102, 1834, 1);
+insert into Cart values (7013, 3107, 1278, 2);
+insert into Cart values (3013, 3103, 654, 2);
+insert into Cart values (0113, 3110, 2349, 3);
+insert into Cart values (0113, 3110, 984, 4);
+insert into Cart values (1113, 3111, 1343, 2);
+insert into Cart values (2113, 3112, 1894, 5);
+insert into Cart values (3113, 3113, 6234, 2);
+insert into Cart values (5113, 3115, 1234, 1);
+insert into Cart values (5113, 3115, 984, 2);
 
 -- to check if a custID is present already
 SELECT CustomerID from Customer;
