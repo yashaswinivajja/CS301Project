@@ -124,7 +124,7 @@ SELECT * from Product where MRP <= %s and MRP >= %s and CategoryID = %s;
 SELECT * from Product;
 -- view by category
 SELECT CategoryID from Category where CategoryName = %s;
-SELECT * from Product where CategoryID = %s group by category;
+SELECT * from Product where CategoryID = %s;
 -- view by price
 SELECT * from Product where MRP <= %s and MRP >= %s;
 -- view by product name
