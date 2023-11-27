@@ -28,10 +28,10 @@ def custAcc(opt,custoID):
       			clname= input('Enter Last Name: ')
       			cmail= input('Enter MailID: ')
       			cdob= input('Enter Date of Birth: ')
-      			cphone= input('Enter Phone number*: ')
-      			cage= input('Enter Age: ')
-      			cdetails=(cfname, cmname, clname, cmail, cdob, cphone, cage)
-      			qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);'
+      			cphone= int(input('Enter Phone number*: '))
+      			cage= int(input('Enter Age: '))
+      			cdetails=(custid, cfname, cmname, clname, cmail, cdob, cphone, cage)
+      			qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%s,%d,%d);'
       			mycur.execute(qry,cdetails)
       			mycon.commit()
       			print('Customer details entered')
@@ -215,14 +215,14 @@ def addProduct(choice):
 			mycon.commit()
 			print("Product Added")
 	if choice == 2:
-	
+		
 def delProduct(choice):
 	if choice == 1:
-	delete=int(input("Enter ID of product to be deleted"))
-	qry = 'DELETE from Product where ProductID=%d;'
-	mycur.execute(qry, (delt,))
-	mycon.commit()
-	print("Product is deleted")
+		delete=int(input("Enter ID of product to be deleted"))
+		qry = 'DELETE from Product where ProductID=%d;'
+		mycur.execute(qry, (delt,))
+		mycon.commit()
+		print("Product is deleted")
 	if choice == 2:
 
 def addSeller(): 
@@ -282,18 +282,13 @@ while True:
 			if choice == '1':
 				custAcc(0)
 			elif choice == '2':
-				sign_in()
+				custSignIn()
 			else:
 				print('Enter correct choice')
-		if ch.lower() == Seller
-			emp_sign_in()
-		if ch in 'cC':
-			employer()
-		if ch in 'dD':
-			seller()
+		if ch.lower() == "Seller"
+			
 		elif ch.lower() == "e":
 			print("Thankyou for visiting !")
 			break
 	except Exception:
 		print('Give the right input')
-	space()
