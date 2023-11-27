@@ -6,11 +6,9 @@ def check():
 	qry='SELECT CustomerID from Customer;'
   	mycur.execute(qry)
 	d=mycur.fetchall()
-  	listOfIDs=[]
-  	for ids in d:
-    		listOfIDs.append(d[0])
+  	cids = [ids[0] for ids in d]
   	mycon.commit()
-  	return listOfIDs
+  	return cids
 
 def custAcc(opt,custoID):
 	if opt == 0:
