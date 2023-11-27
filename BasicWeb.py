@@ -154,7 +154,7 @@ def recommendedProducts(ID):
             p = [t[0] for t in x] 
             q = [t[1] for t in x]
             pname= p[0]
-            catid = p[1]
+            catid = q[0]
             print('Recommended products for %s', pname)
             qry = 'SELECT MRP from Product where ProductID = %s;'
             mycur.execute(qry,(i,))
@@ -210,7 +210,7 @@ def viewProduct(ID,cc):
         for row in d:
             print(row)
     if cc == 5:
-        recommendedProducts()
+        recommendedProducts(ID)
     if cc == 6:
         print('Exit')
 
