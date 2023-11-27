@@ -383,21 +383,21 @@ def sellerSignIn():
                     if ask not in lis:
                             print('Enter the correct id')
                     else:
-            while True:
-                    ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\nEnter 'Back' to logout: "))
-                    if ccc== 1 :
-                            addProduct(1,ask)
-                    if ccc== 2 :
-                            deleteProduct(1,ask)
-                    if ccc== 3:
-                            pid = int(input('Enter ProductID to view stock: '))
-                            qry='SELECT stock from Product where ProductID = %d;'
-                            mycur.execute(qry,pid)
-                            stk = mycur.fetchall()
-                            print('Stock of the product with  productID:%d = %s', pid, stk)
-                    elif ccc.lower() == 'back':
-                            print("Successfully logged out ")
-                    break
+                        while True:
+                            ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\nEnter 'Back' to logout: "))
+                            if ccc== 1 :
+                                addProduct(1,ask)
+                            if ccc== 2 :
+                                deleteProduct(1,ask)
+                            if ccc== 3:
+                                pid = int(input('Enter ProductID to view stock: '))
+                                qry='SELECT stock from Product where ProductID = %d;'
+                                mycur.execute(qry,pid)
+                                stk = mycur.fetchall()
+                                print('Stock of the product with  productID:%d = %s', pid, stk)
+                            elif ccc.lower() == 'back':
+                                print("Successfully logged out ")
+                            break
     except Exception:
         print('Give the correct input') 
 
@@ -422,11 +422,11 @@ while True:
             qry= 'grant select on Product(stock) to %s;'
             mycur.execute(qry,(SellerFinanceHead,))
             for i in range(3):
-            qry='grant insert,delete on Product to %s;'
-            mycur.execute(qry,(SellerSales[i],))
-            sellerSignIn()
-          if ch.lower = "admin"
-        mycur.execute('grant all privileges on onlineshopping.* to root')
+                qry='grant insert,delete on Product to %s;'
+                mycur.execute(qry,(SellerSales[i],))
+                sellerSignIn()
+        if ch.lower == "admin":
+            mycur.execute('grant all privileges on onlineshopping.* to root')
             print('What do you want to do?')
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
