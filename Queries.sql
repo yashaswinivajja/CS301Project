@@ -1,6 +1,6 @@
 insert into Category values (1000, 'Clocks', 'Collection of stylish wall clocks, elegant pendulum clocks, reliable alarm clocks and much more');
 insert into Category values (1001, 'Photo frames', 'A complete range of photo frames in several designs, materials, sizes and works of art');
-insert into Category values (1002, 'Paintings', 'Browse through millions of paintings from classic artists along with independent artists all over the world');
+insert into Category values (1002, 'Paintings', 'Browse through millions of paintings from classic artists along with independent artists');
 insert into Category values (1003, 'Artificial flowers', 'Explore the whole collection of Artificial flowers and plants for your home decorations');
 insert into Category values (1004, 'Posters', 'Decorate your home or office with some awesome posters from our collection.');
 insert into Category values (1005, 'Stickers', 'Get rid of the boring and plain look of your accessories and decorate them with quirky stickers');
