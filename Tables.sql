@@ -106,6 +106,5 @@ create table Payment(
     CustomerID numeric(10),
     DateOfPayment datetime(2),
     primary key (PaymentID),
-    foreign key (OrderID) references Order_ (OrderID) on delete cascade,
     foreign key (CustomerID) references Customer (CustomerID) on delete cascade
     );
