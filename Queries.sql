@@ -68,5 +68,10 @@ insert into Product values (0934, 'Abstract paintings', 3210, 1099, 1002, 76, 'K
 insert into Product values (1834, 'Seven horses', 1217, 1399, 1002, 20, 'CasperMe');
 insert into Product values (904, 'Vinyl tree with birds', 6128, 899, 1005, 540, 'Decals');
 insert into Product values (984, 'Evil eye wind chime', 2120, 2130, 1012, 43, '9Dzine');
-insert into Product values (1234, 'Quartz wall clock', 1328, 1199, 1000, 100, 'Oreva');
+insert into Product values (6234, 'Enamel Vase', 5323, 2999, 1008, 50, 'Indulge homes');
+insert into Product values (654, 'Cabinet mirror', 1217, 2499, 1006, 45, 'Bnezz');
+insert into Product values (2349, 'Cast Resin Laxmi showpiece', 2120, 1499, 1009, 30, 'Indicast');
+insert into Product values (678, 'Vine Silk Carnition Garland', 1100, 999, 1003, 230, 'VRB Dec');
+insert into Product values (3434, 'Pinewood Rotating frame', 1328, 1299, 1001, 350, 'ADA Handicraft');
+insert into Product values (328, 'Cherry Blossom tree lamp', 1100, 999, 1003, 50, 'Glowserie');
 
