@@ -74,4 +74,4 @@ insert into Product values (2349, 'Cast Resin Laxmi showpiece', 2120, 1499, 1009
 insert into Product values (678, 'Vine Silk Carnition Garland', 1100, 999, 1003, 230, 'VRB Dec');
 insert into Product values (3434, 'Pinewood Rotating frame', 1328, 1299, 1001, 350, 'ADA Handicraft');
 insert into Product values (328, 'Cherry Blossom tree lamp', 1100, 999, 1003, 50, 'Glowserie');
-
+insert into Product values (765, 'Macrame wall hanging', 3210, 599, 1007, 56, 'CraftVatika');
