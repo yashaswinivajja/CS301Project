@@ -278,7 +278,7 @@ def delProduct(choice,ID):
             mycon.commit()
         print('Product deleted from cart by one unit')
         
-def cartOperations(ch,iD):
+def cartOperations(ch,iD): 
     cartid=int(str(iD)[::-1])
     if ch == 1:
         addProduct(2,iD)
