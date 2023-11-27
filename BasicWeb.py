@@ -162,16 +162,17 @@ def viewProduct():
 	2) By Category
 	3) By price
 	4) By search
- 	5) Exit
+ 	5) By Recommendation
+ 	6) Exit
 	''')
 	cc= int(input('Enter your view: '))
-	if cc==1:
+	if cc == 1:
 		qry= 'SELECT * from Product;'
     		mycur.execute(qry)
     		d = mycur.fetchall()
     		for row in d:
 	  		print(row)
-  	if cc==2:
+  	if cc == 2:
     		c=input('Enter the Category: ')
     		qry='SELECT CategoryID from Category where CategoryName= %s;'
    		mycur.execute(qry,c)
@@ -181,21 +182,22 @@ def viewProduct():
       			d=mycur.fetchall()
       			for row in d:
 	      			print(row)
-  	if cc==3:
+  	if cc == 3:
 		c= int(input('Enter Max price: '))
 		qry = 'SELECT * from Product where MRP <= %d;'
 		mycur.execute(qry,(c,))
 		d=mycur.fetchall()
 		for row in d:
 			print(row)
-	if cc==4:
+	if cc == 4:
 		c=input('Enter Product Name: ')
       		qry= 'SELECT * from Product where Product name = %s group by product name;'		
    		mycur.execute(qry,c)
 		d=mycur.fetchall()
       		for row in d:
 	      		print(row)
-	if cc== 5:
+	if cc == 5:
+	if cc == 6:
 		break
 
 def addProduct(choice,ID):
