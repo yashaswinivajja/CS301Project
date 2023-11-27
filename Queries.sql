@@ -96,3 +96,5 @@ insert into Cart values (2243, 3112, 1894, 5);
 insert into Cart values (3847, 3113, 6234, 2);
 insert into Cart values (457, 3115, 1234, 1);
 insert into Cart values (457, 3115, 984, 2);
+
+SELECT CustomerID from Customer;
