@@ -56,11 +56,15 @@ def custAcc(opt,custoID):
 			if ch == 4:
 				d[4] = input('Enter MailID: ')
 			if ch == 5:
-				d[5] = input('Enter Date of Birth: ')
+				dob = input('Enter Date of Birth DD/MM/YYYY: ')
+				try:
+					d[5] = datetime.strptime(sdob, "%d/%m/%Y")
+				except ValueError:
+					print("Invalid date format. Please use DD/MM/YYYY")
 			if ch == 6:
-				d[6] = input('Enter Phone number: ')
+				d[6] = int(input('Enter Phone number: '))
 			if ch == 7:
-				d[7] = input('Enter Age: ')
+				d[7] = int(input('Enter Age: '))
 			if ch == 8:
 				break
 			else:
