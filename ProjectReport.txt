@@ -1,1 +1,5 @@
-
+Yashaswini 2021CSB1137
+Aggregate function,tables, ER
+Niroopma 2021CSB1115
+Authorisation, SQL queries
+ALL done by all
