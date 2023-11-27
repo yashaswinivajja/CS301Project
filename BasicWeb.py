@@ -1,6 +1,6 @@
 import mysql.connector
 from datetime import datetime 
-mycon=mysql.connector.conect(host='localhost', user='root', password='password', database='shopping')
+mycon=mysql.connector.connect(host='localhost', user='root', password='root', database='shopping')
 mycur=mycon.cursor
 
 def check():
