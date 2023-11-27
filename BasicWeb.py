@@ -1,14 +1,8 @@
 import mysql.connector
 from datetime import datetime 
+import random
 mycon=mysql.connector.connect(host='localhost', user='root', password='root', database='Shopping')
 mycur=mycon.cursor()
-
-##query = 'select * from Category where CategoryName = %s;'
-##s='Clocks'
-##mycur.execute(query,(s,))
-##a=mycur.fetchall()
-##mycon.commit()
-##print(a)
 
 def check():
     qry='SELECT CustomerID from Customer;'
@@ -17,6 +11,7 @@ def check():
     cids = [ids[0] for ids in d]
     mycon.commit()
     return cids
+    
 def custAcc(opt,custoID):
     if opt == 0:
         list_of_ids = check()
@@ -79,50 +74,7 @@ def custAcc(opt,custoID):
                 mycur.execute(qry,d)
                 mycon.commit()
         print('Edit details completed')
-            
-def custSignIn():
-    try:
-        ask = int(input('Enter customer ID to sign in : '))
-        list_of_ids = check()
-
-        if ask in list_of_ids:
-            while True:
-                ch = int(input('1) Products\n2) Cart\n3) My Orders\n4) Update Self Details\nEnter your column choice: '))
-                if ch == 1:
-                    while 1:
-                    print('''
-            1) all products
-            2) By Category
-            3) By price
-            4) By search
-            5) By Recommendation
-            6) Exit
-            ''')
-            cc= int(input('Enter your view: '))
-            if cc == 6:
-                break
-                    viewProduct(ask,cc)
-                    cd = input('Do you want to select any product(Y/N): ')
-                    if cd in yY:
-                        selectProduct(ask)
-                        ccc = int(input('1)Just View\n2)Add to cart\nEnter: '))
-                        if ccc == 2:
-                            cartOperations(1,ask)
-                    else: 
-                        continue
-                if ch == 2:
-                    cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
-                    cartOperations(cc,ask)
-                if ch == 3:
-                    myPurchase(ask)
-                if ch == 4:
-                    custAcc(1,ask)
-                if ch == 5:
-                        break
-    except Exception:
-        print('Enter correct choice')
                     
-                
 def myPurchase(ID):
     print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
     while True:
@@ -139,7 +91,8 @@ def myPurchase(ID):
                 mycur.execute(qry,(p,))
                 print('Purchase cancelled!! Transaction will be done to your account in max two working days')
             if ch == 3:
-                    cartOperations(4,ID)
+                print('Not yet devised')
+                    continue
             if ch == 4:
                 p = int(input('Enter the Order ID of the order you want to track purchase: '))
                 qry = 'SELECT Orderstatus from Order where OrderID = %s;'
@@ -156,7 +109,7 @@ def selectProduct(custID):
     return pid
     
 def review():
-    ch = int(input('1) View reviews for a product\n2) Write review for a product\nEnter you choice: '))
+    ch = int(input('1) View reviews for a product\n2) Write review for a product\n3)Just viewEnter you choice: '))
     if ch == 1:
              p = int(input("Enter the productID for which view reviews: "))
              qry = 'SELECT * from Review where ProductID = %d group by ProductID;'
@@ -171,36 +124,8 @@ def review():
         tuple = (rid, p, q, pid, cid)
         qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
         mycur.execute(qry,tuple)
-
-def cartOperations(ch,iD):
-    cartid=int(str(iD)[::-1])
-    if ch == 1:
-        addProduct(2,iD)
-    if ch == 2:
-        delProduct(2,iD)
     if ch == 3:
-        qry = 'SELECT * from Cart where CartID= %d;'
-        mycur.execute(qry,(cartid,))
-        d = mycur.fetchall()
-        mycon.commit()
-        for row in d:
-            print(row)
-    if ch == 4:
-        tuple=()
-        oid = AB+cartid
-        ono = cartid-1
-        cdate=datetime.now()
-        odate = cdate.strftime("%d/%m/%Y")
-        welater= cdate+timedelta(days=7)
-        shdate = welater.strftime("%d/%m/%Y") 
-        mycur.execute('SELECT productID,MRP,Quantity, (MRP*Quantity) as totalAmount from cart;')
-        for row in res:
-            pid,mrp,qua,oamt= row
-        add = int(input('Enter AddressID of your location: '))
-        ostatus="booked"
-        tuple=(oid,ono,shdate,odate,oamt,cartid,ID,ostatus)
-        qry = 'INSERT into Order values(%s,%s,%s,%,%s,%s,%s,%s,%s,%s);'
-        mycur.execute(qry,tuple)
+        pid = int(input('Enter the ProductID of the product selected: '))
 
 def recommendedProducts(ID):
     print('1) Recommend by price\n2) Recommend by ratings')
@@ -340,7 +265,88 @@ def delProduct(choice,ID):
             mycur(qry,(pid,))
             mycon.commit()
         print('Product deleted from cart by one unit')
+        
+def cartOperations(ch,iD):
+    cartid=int(str(iD)[::-1])
+    if ch == 1:
+        addProduct(2,iD)
+    if ch == 2:
+        delProduct(2,iD)
+    if ch == 3:
+        qry = 'SELECT * from Cart where CartID= %d;'
+        mycur.execute(qry,(cartid,))
+        d = mycur.fetchall()
+        mycon.commit()
+        for row in d:
+            print(row)
+    if ch == 4:
+        tuple=()
+        oid = random.randint(iD-100,iD)
+        qry='SELECT OrderID from Order;'
+        mycur.execute(qry)
+        d=mycur.fetchall()
+        oids = [ids[0] for ids in d]
+        if oid in oids:
+            oid = int(1+oid)
+        ono = cartid-1
+        cdate=datetime.now()
+        odate = cdate.strftime("%d/%m/%Y")
+        welater= cdate+timedelta(days=7)
+        shdate = welater.strftime("%d/%m/%Y") 
+        mycur.execute('SELECT productID,MRP,Quantity, (MRP*Quantity) as totalAmount from cart;')
+        for row in res:
+            pid,mrp,qua,oamt= row
+        add = int(input('Enter AddressID of your location: '))
+        ostatus="booked"
+        tuple=(oid,ono,shdate,odate,oamt,cartid,iD,ostatus)
+        qry = 'INSERT into Order values(%s,%s,%s,%,%s,%s,%s,%s,%s,%s);'
+        mycur.execute(qry,tuple)
+        
+def custSignIn():
+    try:
+        ask = int(input('Enter customer ID to sign in : '))
+        list_of_ids = check()
 
+        if ask in list_of_ids:
+            while True:
+                ch = int(input('1) Products\n2) Cart\n3) My Orders\n4) Update Self Details\nEnter your column choice: '))
+                if ch == 1:
+                    while 1:
+                    print('''
+            1) all products
+            2) By Category
+            3) By price
+            4) By search
+            5) By Recommendation
+            6) Exit
+            ''')
+            cc= int(input('Enter your view: '))
+            if cc == 6:
+                break
+                    viewProduct(ask,cc)
+                    cd = input('Do you want to select any product(Y/N): ')
+                    if cd in yY:
+                        review()
+                        ccc = input('Add to cart(Y/N)Enter: ')
+                        if ccc in yY:
+                            cartOperations(1,ask)
+                    else: 
+                        continue
+                if ch == 2:
+                    cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
+                    cartOperations(cc,ask)
+                    continue
+                if ch == 3:
+                    myPurchase(ask)
+                    continue
+                if ch == 4:
+                    custAcc(1,ask)
+                    continue
+                if ch == 5:
+                        break
+    except Exception:
+        print('Enter correct choice')
+        
 def addSeller(): 
     n=int(input('Enter number of sellers to add: '))
     for i in range(n):
