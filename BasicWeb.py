@@ -98,14 +98,14 @@ def custSignIn():
 					cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
 						 cartOperations(cc)
 				if ch == 3:
-					myPurchase()
+					myPurchase(ask)
 				if ch = 4:
 					custAcc(1)
 				if ch == 5:
 					break
 					
 				
-def myPurchase():
+def myPurchase(ID):
 	print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
 	while True:
 	ch = int(input(Enter your choice: ))
@@ -121,6 +121,7 @@ def myPurchase():
 		mycur.execute(qry,(p,))
 		print('Purchase cancelled!! Transaction will be done to your account in max two working days')
 	if ch == 3:
+		cartOperations(4,ID)
 	if ch == 4:
 		p = int(input('Enter the Order ID of the order you want to track purchase: ')
 		qry = 'SELECT Orderstatus from Order where OrderID = %d;'
@@ -142,6 +143,7 @@ def review():
 		qry = 'SELECT * from Review where ProductID = %d group by ProductID;'
 		mycur.execute(qry,(p,))
 		d = mycur.fetchall()
+		mycon.commit()
 		for row in d:
 			print(row)
 	if ch == 2:
@@ -151,14 +153,15 @@ def review():
 		tuple = (rid, p, q, pid, cid)
 		qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
 		mycur.execute(qry,tuple)
-
+		mycon.commit()
+		
 def cartOperations(ch,iD):
+	cartid=int(str(iD)[::-1])
 	if ch == 1:
 		addProduct(2,iD)
 	if ch == 2:
 		delProduct(2,iD)
 	if ch == 3:
-		cartid=int(str(iD)[::-1])
 		qry = 'SELECT * from Cart where CartID= %d;'
 		mycur.execute(qry,(cartid,))
 		d = mycur.fetchall()
@@ -166,9 +169,14 @@ def cartOperations(ch,iD):
 		for row in d:
 			print(row)
 	if ch == 4:
-		tuple=
-		qry = 'INSERT into Order values(%d,%d,%,%,%d,%d,%d,%s,%d,%d);'
-		mycur.execute(qry,tuple)
+		cc = input('Do you want to order(Y/N): ')
+		if cc in yY:
+			qry = 'SELECT CartID,count(*) from Order group by CartID;'
+			mycur(qry,(cartid,))
+			
+			tuple = 
+			qry = 'INSERT into Order values(%d,%d,%s,%s,%d,%d,%d,%s,%d,%d);'
+			mycur.execute(qry,tuple)
 def viewProduct():
 	while 1:
 	print('''
