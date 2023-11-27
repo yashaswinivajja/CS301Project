@@ -106,7 +106,7 @@ SELECT * from Customer where customerID = %s;
 DELETE from Customer where CustomerID = %s;
 INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s);
 -- to view purchase
-SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID;
+SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID and CustomerID=%s;
 -- to cancel purchase
 DELETE from Order where OrderID = %s;
 -- to track purchase
