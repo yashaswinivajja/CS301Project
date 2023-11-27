@@ -97,4 +97,59 @@ insert into Cart values (3847, 3113, 6234, 2);
 insert into Cart values (457, 3115, 1234, 1);
 insert into Cart values (457, 3115, 984, 2);
 
+-- to check if a custID is present already
 SELECT CustomerID from Customer;
+-- to add a customer
+INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);
+-- to edit customer details
+SELECT * from Customer where customerID = %s;
+DELETE from Customer where CustomerID = %s;
+INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s);
+-- to view purchase
+SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID;
+-- to cancel purchase
+DELETE from Order where OrderID = %s;
+-- to track purchase
+SELECT Orderstatus from Order where OrderID = %s;
+-- view reviews of a product
+SELECT * from Review where ProductID = %s group by ProductID;
+-- to write a review
+INSERT into Review values(%s,%s,%s,%s,%s);
+--recommend similar to products in cart by price
+SELECT ProductID from Cart where CustomerID = %s;
+SELECT ProductName,CategoryID from Product wehre productID = %s;
+SELECT MRP from Product where ProductID = %s;
+SELECT * from Product where MRP <= %s and MRP >= %s and CategoryID = %s;
+-- view all products
+SELECT * from Product;
+-- view by category
+SELECT CategoryID from Category where CategoryName = %s;
+SELECT * from Product where CategoryID = %s group by category;
+-- view by price
+SELECT * from Product where MRP <= %s and MRP >= %s;
+-- view by product name
+SELECT * from Product where Product name = %s;
+-- add product by seller
+INSERT into Product values(%s,%s,%s,%s,%s,%s,%s);
+--delete product by seller
+DELETE from Product where ProductID = %s;
+-- add product to cart
+SELECT Quantity form Cart where ProductID = %s;
+INSERT into Cart values(%s,%s,%s,%s);
+update Order set Quantity = %s where ProductID = %s;
+-- delete product from cart
+SELECT Quantity form Order where ProductID = %s;
+update Cart set Quantity = %s where ProductID = %s;
+delete from Order where ProductID = %s;
+-- view cart
+SELECT * from Cart where CartID= %s;
+-- buy now
+SELECT OrderID from Order;
+SELECT productID,MRP,Quantity, (MRP*Quantity) as totalAmount from cart;
+INSERT into Order values(%s,%s,%s,%,%s,%s,%s,%s,%s,%s);
+-- add a seller
+INSERT into Seller values(%s,%s,%s,%s);
+-- to check for seller sign in and sign up
+SELECT SellerID from Seller;
+-- view stock
+SELECT stock from Product where ProductID = %s;
