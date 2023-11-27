@@ -188,7 +188,7 @@ def cartOperations(ch,iD):
 ##        tuple=
 ##        qry = 'INSERT into Order values(%d,%d,%,%,%d,%d,%d,%s,%d,%d);'
 ##        mycur.execute(qry,tuple)
-def recommendProducts(ID):
+def recommendedProducts(ID):
     print('1) Recommend by price\n2) Recommend by ratings')
     ch = int(input('Enter: '))
     if ch == 1:
@@ -252,9 +252,10 @@ def viewProduct(ID,cc):
                     d=mycur.fetchall()
                     for row in d:
                             print(row)
-            #if cc == 5:
+            if cc == 5:
+                recommendedProducts()
             if cc == 6:
-                    break
+                print('Exit')
 
 def addProduct(choice,ID):
     if choice == 1:
