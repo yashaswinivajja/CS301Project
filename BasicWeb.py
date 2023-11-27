@@ -91,9 +91,7 @@ def myPurchase(ID):
                 mycur.execute(qry,(p,))
                 print('Purchase cancelled!! Transaction will be done to your account in max two working days')
             if ch == 3:
-                print('Not yet devised')
-                    continue
-            if ch == 4:
+                
                 p = int(input('Enter the Order ID of the order you want to track purchase: '))
                 qry = 'SELECT Orderstatus from Order where OrderID = %s;'
                 mycur.execute(qry,(p,))
