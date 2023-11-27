@@ -153,3 +153,5 @@ INSERT into Seller values(%s,%s,%s,%s);
 SELECT SellerID from Seller;
 -- view stock
 SELECT stock from Product where ProductID = %s;
+--grants
+grant select on Product(stock) to %s;
