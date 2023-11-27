@@ -198,7 +198,7 @@ def viewProduct(ID,cc):
                     for row in d:
                             print(row)
             if cc == 5:
-                recommendedProducts()
+                recommendedProducts(ID)
             if cc == 6:
                 print('Exit')
 
@@ -398,7 +398,7 @@ while True:
     ch = input('Enter: ')
     try:
         if ch.lower() == "customer":
-            print(" 1. Create Account\n2. Sign In into existing account")
+            print("1. Create Account\n2. Sign In into existing account")
             choice = int(input('enter: '))
             if choice == 1:
                 custAcc(0,0)
