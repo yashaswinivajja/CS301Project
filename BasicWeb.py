@@ -21,7 +21,7 @@ def custAcc(opt,custoID):
             if custid in list_of_ids:
                 print('Customer ID already exists. Please choose another')
             else:
-                print('* indicates mmandatory')
+                print('* indicates mandatory')
                 cdetails=()
                 cfname= input('Enter First Name*: ')
                 cmname= input('Enter Middle Name: ')
@@ -124,17 +124,20 @@ def review(ID):
              qry = 'SELECT Description,Ratings from Review where ProductID = %s;'
              mycur.execute(qry,(p,))
              d = mycur.fetchall()
+             mycon.commit()
              for row in d:
                      print(row)
     if ch == 2:
         pid = selectProduct(ID)
+        rid = pid+ID
         p = input('Enter your Review description: ')
-        q = int(input('Enter your Ratings: '))
+        q = input('Enter your Ratings: ')
         tuple = (rid, p, q, pid, cid)
         qry = 'INSERT into Review values(%s,%s,%s,%s,%s);'
         mycur.execute(qry,tuple)
+        mycon.commit()
     if ch == 3:
-        pid = int(input('Enter the ProductID of the product selected: '))
+        pid = int(input('Enter the ProductID of the product to select: '))
 
 def recommendedProducts(ID):
     print('1) Recommend by price\n2) Recommend by ratings')
