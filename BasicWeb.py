@@ -148,7 +148,7 @@ def recommendedProducts(ID):
         ccc=mycur.fetchall()
         cc = [t[0] for t in ccc]
         for i in cc:
-            qry = 'SELECT ProductName,CategoryID from Product wehre productID = %s;'
+            qry = 'SELECT ProductName,CategoryID from Product where productID = %s;'
             mycur.execute(qry,(i,))
             x = mycur.fetchall()
             p = [t[0] for t in x] 
@@ -414,8 +414,9 @@ while True:
             custSignIn()
         else:
             print('Enter correct choice')
-        #if ch.lower() == "Seller":
-            
+        if ch.lower() == "Seller":
+            grant select on stock to SellerFinance
+            grant 
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
         break
