@@ -1,5 +1,5 @@
-create database E_COMMERCE;
-use E_COMMERCE;
+create database Shopping;
+use Shopping;
 
 create table Category(
     CategoryID numeric(10),
@@ -68,7 +68,7 @@ create table Cart(
     CustomerID numeric(10),
     ProductID numeric(10),
     Quantity numeric(5),
-    primary key (cartID),
+    primary key (cartID, ProductID),
     foreign key (CustomerID) references Customer (CustomerID) on delete cascade,
     foreign key (ProductID) references Product (ProductID) on delete cascade
     );
