@@ -88,7 +88,8 @@ def custSignIn():
 					viewProduct()
 					cc = input('Do you want to select any product(Y/N): ')
 					if cc in yY:
-						selectProduct(ask)
+						pid = selectProduct(ask)
+						review(pid,ask)
 						ccc = int(input('1)Just View\n2)Add to cart\nEnter: '))
 						if ccc == 2:
 							cartOperations(1)
@@ -136,8 +137,8 @@ def selectProduct(custID):
 	pid = int(input('Enter the ProductID of the product selected: '))
 	return pid
 	
-def review():
-	ch = int(input('1) View reviews for a product\n2) Write review for a product\nEnter you choice: ')
+def review(pid,cid):
+	ch = int(input('1) View reviews for a product\n2) Write review for a product\n3)None\nEnter you choice: ')
 	if ch == 1:
 		p = int(input("Enter the productID for which view reviews: "))
 		qry = 'SELECT * from Review where ProductID = %d group by ProductID;'
@@ -147,13 +148,14 @@ def review():
 		for row in d:
 			print(row)
 	if ch == 2:
-		pid = selectProduct(cid)
 		p = input('Enter your Review description: ')
 		q = int(input('Enter your Ratings: '))
 		tuple = (rid, p, q, pid, cid)
 		qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
 		mycur.execute(qry,tuple)
 		mycon.commit()
+	if ch == 3:
+		print('No review operation')
 		
 def cartOperations(ch,iD):
 	cartid=int(str(iD)[::-1])
