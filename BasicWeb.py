@@ -12,32 +12,92 @@ def check():
   	mycon.commit()
   	return listOfIDs
 
-def newCustAcc():
-  	list_of_ids = check()
-  	i=True
-  	while i:
-    		custid = int(input('Enter your Customer id: '))
-    	if custid in list_of_ids:
-      		print('Customer ID already exists. Please choose another')
-    	else:
-      		print('* indicates mmandatory')
-      		cdetails=()
-      		cfname= input('Enter First Name*: ')
-      		cmname= input('Enter Middle Name: ')
-      		clname= input('Enter Last Name: ')
-      		cmail= input('Enter MailID: ')
-      		cdob= input('Enter Date of Birth: ')
-      		cphone= input('Enter Phone number*: ')
-      		cage= input('Enter Age: ')
-      		cdetails=(cfname, cmname, clname, cmail, cdob, cphone, cage)
-      		qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);'
-      		mycur.execute(qry,cdetails)
-      		mycon.commit()
-      		print('Customer details entered')
-     		i=False
-
+def custAcc(opt,custoID):
+	if opt == 0:
+  		list_of_ids = check()
+  		i=True
+  		while i:
+    			custid = int(input('Enter your Customer id: '))
+    		if custid in list_of_ids:
+      			print('Customer ID already exists. Please choose another')
+    		else:
+      			print('* indicates mmandatory')
+      			cdetails=()
+      			cfname= input('Enter First Name*: ')
+      			cmname= input('Enter Middle Name: ')
+      			clname= input('Enter Last Name: ')
+      			cmail= input('Enter MailID: ')
+      			cdob= input('Enter Date of Birth: ')
+      			cphone= input('Enter Phone number*: ')
+      			cage= input('Enter Age: ')
+      			cdetails=(cfname, cmname, clname, cmail, cdob, cphone, cage)
+      			qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s,%s);'
+      			mycur.execute(qry,cdetails)
+      			mycon.commit()
+      			print('Customer details entered')
+     			i=False
+	if opt == 1:
+		qry = 'SELECT * from Customer where customerID = %d;'
+		mycur.execute(qry,(custoID,))
+		d = mycur.fetchall()
+		d[0] = custoID
+		print('1)First Name\n2) Middle Name\n3) Last Name\n4) MailID\n5) Date of Birth\n6)Phone number\n7)Age\n8)No edit')
+		p = int(input('Enter number of details to edit: ')
+		for i in range(p):
+			ch = input('Enter the detail number to edit: ')
+			if ch == 1:
+				d[1] = input('Enter First name: ')
+			if ch == 2:
+				d[2] = input('Enter Middle name: ')	
+			if ch == 3:
+				d[3] = input('Enter Last Name: ')
+			if ch == 4:
+				d[4] = input('Enter MailID: ')
+			if ch == 5:
+				d[5] = input('Enter Date of Birth: ')
+			if ch == 6:
+				d[6] = input('Enter Phone number: ')
+			if ch == 7:
+				d[7] = input('Enter Age: ')
+			if ch == 8:
+				break
+			else:
+				print('Enter correct choice')
+			if ch<9 && ch>0:
+				qry = 'DELETE from Customer where CustomerID = %d;'
+				mycur.execute(qry,(custoID,))
+				qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%d,%d)
+				mycur.execute(qry,d)
+		print('Edit details completed')
+		
 def custSignIn():
-
+	try:
+		ask = int(input('Enter customer ID to sign in : '))
+		list_of_ids = check()
+		if ask in list_of_ids:
+			while True:
+				ch = int(input('1) Products\n2) Cart\n3) My Orders\n4) Update Self Details\nEnter your column choice: '))
+				if ch == 1:
+					viewProduct()
+					cc = input('Do you want to select any product(Y/N): ')
+					if cc in yY:
+						selectProduct(ask)
+						ccc = int(input('1)Just View\n2)Add to cart\nEnter: '))
+						if ccc == 2:
+							cartOperations(1)
+					else: 
+						continue
+				if ch == 2:
+					cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now")
+						 cartOperations(cc)
+				if ch == 3:
+					myPurchase()
+				if ch = 4:
+					custAcc(1)
+				if ch == 5:
+					break
+					
+				
 def myPurchase():
 	print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
 	while True:
@@ -63,6 +123,10 @@ def myPurchase():
 			print(row)
 	if ch == 5:
 		break
+		
+def selectProduct(custID):
+	pid = int(input('Enter the ProductID of the product selected: '))
+	return pid
 	
 def review():
 	ch = int(input('1) View reviews for a product\n2) Write review for a product\nEnter you choice: ')
@@ -74,9 +138,14 @@ def review():
 		for row in d:
 			print(row)
 	if ch == 2:
-		
-def cartOperations():
-	ch=int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now")
+		pid = selectProduct(cid)
+		p = input('Enter your Review description: ')
+		q = int(input('Enter your Ratings: '))
+		tuple = (rid, p, q, pid, cid)
+		qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
+		mycur.execute(qry,tuple)
+
+def cartOperations(ch):
 	if ch == 1:
 		addProduct(2)
 	if ch == 2:
@@ -150,7 +219,7 @@ def addProduct(choice):
 def delProduct(choice):
 	if choice == 1:
 	delete=int(input("Enter ID of product to be deleted"))
-	qry = 'delete from Product where ProductID=%d;'
+	qry = 'DELETE from Product where ProductID=%d;'
 	mycur.execute(qry, (delt,))
 	mycon.commit()
 	print("Product is deleted")
@@ -211,7 +280,7 @@ while True:
 			print(" 1. Create Account\n2. Sign In into existing account")
 			choice = input('enter: ')
 			if choice == '1':
-				newCustAcc()
+				custAcc(0)
 			elif choice == '2':
 				sign_in()
 			else:
