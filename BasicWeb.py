@@ -89,8 +89,8 @@ def myPurchase(ID):
     while True:
             ch = int(input('Enter your choice:' ))
             if ch == 1:
-                qry = 'SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID;'
-                mycur.execute(qry)
+                qry = 'SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID and Order.CustomerID =%s;'
+                mycur.execute(qry,(ID,))
                 d = mycur.fetchall()
                 for row in d:
                     print(row)
@@ -237,7 +237,7 @@ def addProduct(choice,ID):
         cid = ID
         pid = selectProduct(ID)
         cartid=int(str(ID)[::-1])
-        qry = 'SELECT Quantity form Order where ProductID = %s;'
+        qry = 'if exists(SELECT Quantity form Order where ProductID = %s) SELECT Quantity form Order where ProductID = %s;'
         mycur.execute(qry,(pid,))
         nump = mycur.fetchall()
         if len(nump) == 0:
