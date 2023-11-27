@@ -67,8 +67,7 @@ create table Cart(
     CartID numeric(10),
     CustomerID numeric(10),
     ProductID numeric(10),
-    GrandTotal numeric(20,2),
-    ItemsTotal numeric(5),
+    Quantity numeric(5),
     primary key (cartID),
     foreign key (CustomerID) references Customer (CustomerID) on delete cascade,
     foreign key (ProductID) references Product (ProductID) on delete cascade
