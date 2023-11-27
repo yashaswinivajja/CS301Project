@@ -39,9 +39,31 @@ def newCustAcc():
 def custSignIn():
 
 def myPurchase():
-	ch= int(input("Enter your choice:\n1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase"))
+	print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
+	while True:
+	ch = int(input(Enter your choice: ))
 	if ch==1:
-		
+		qry = 'SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID;'
+		mycur.execute(qry)
+		d = mycur.fetchall()
+		for row in d:
+			print(row)
+	if ch == 2:
+		p = int(input('Enter the Order ID of the order you want to cancel purchase: ')
+		qry = 'DELETE from Order where OrderID = %d;'
+		mycur.execute(qry,(p,))
+		print('Purchase cancelled!! Transaction will be done to your account in max two working days')
+	if ch == 3:
+	if ch == 4:
+		p = int(input('Enter the Order ID of the order you want to track purchase: ')
+		qry = 'SELECT Orderstatus from Order where OrderID = %d;'
+		mycur.execute(qry,(p,))
+		d = mycur.fetchall()
+		for row in d:
+			print(row)
+	if ch == 5:
+		break
+	
 def writeReview():
 
 def cartOperations():
