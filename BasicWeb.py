@@ -65,6 +65,7 @@ def custAcc(opt,custoID):
 				mycur.execute(qry,(custoID,))
 				qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%d,%d);'
 				mycur.execute(qry,d)
+				mycon.commit()
 		print('Edit details completed')
 			
 def custSignIn():
@@ -148,7 +149,13 @@ def cartOperations(ch,iD):
 	if ch == 2:
 		delProduct(2,iD)
 	if ch == 3:
-		
+		cartid=int(str(iD)[::-1])
+		qry = 'SELECT * from Cart where CartID= %d;'
+		mycur.execute(qry,(cartid,))
+		d = mycur.fetchall()
+		mycon.commit()
+		for row in d:
+			print(row)
 	if ch == 4:
 		qry = 'INSERT into Order values(%d,%d,%,%d,%d,%d,%s);'
 
