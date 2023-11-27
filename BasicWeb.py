@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime 
 mycon=mysql.connector.conect(host='localhost', user='root', password='password', database='shopping')
 mycur=mycon.cursor
 
@@ -24,7 +25,11 @@ def custAcc(opt,custoID):
 				cmname= input('Enter Middle Name: ')
 				clname= input('Enter Last Name: ')
 				cmail= input('Enter MailID: ')
-				cdob= input('Enter Date of Birth: ')
+				sdob= input('Enter Date of Birth DD/MM/YYYY: ')
+				try:
+					cdob = datetime.strptime(sdob, "%d/%m/%Y")
+				except ValueError:
+					print("Invalid date format. Please use DD/MM/YYYY")
 				cphone= int(input('Enter Phone number*: '))
 				cage= int(input('Enter Age: '))
 				cdetails=(custid, cfname, cmname, clname, cmail, cdob, cphone, cage)
@@ -157,8 +162,9 @@ def cartOperations(ch,iD):
 		for row in d:
 			print(row)
 	if ch == 4:
-		qry = 'INSERT into Order values(%d,%d,%,%d,%d,%d,%s);'
-
+		tuple=
+		qry = 'INSERT into Order values(%d,%d,%,%,%d,%d,%d,%s,%d,%d);'
+		mycur.execute(qry,tuple)
 def viewProduct():
 	while 1:
 	print('''
