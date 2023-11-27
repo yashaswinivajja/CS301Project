@@ -376,12 +376,13 @@ def sellerSignIn():
             qry = 'SELECT SellerID from Seller;'
             mycur.execute(qry)
             d = mycur.fetchall()
+            d = [t[0] for t in d]
             lis = []
             for i in d:
                     lis.append(i[0])
                     if ask not in lis:
                             print('Enter the correct id')
-                    #else:
+                    else:
             while True:
                     ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\nEnter 'Back' to logout: "))
                     if ccc== 1 :
@@ -402,8 +403,7 @@ def sellerSignIn():
 
 print('WELCOME !')
 while True:
-    mycur.execute('grant all privileges on onlineshopping.* to root')
-    print("Choose your role: Customer\SellerSales\SellerFinance")
+    print("Choose your role: 1)Customer 2)SellerSales\SellerFinance 3)Admin")
     ch = input('Enter: ')
     if ch.lower() == "customer":
         print(" 1. Create Account\n2. Sign In into existing account")
@@ -414,7 +414,7 @@ while True:
             custSignIn()
         else:
             print('Enter correct choice')
-        if ch.lower() == "Seller":
+        if ch.lower()[:6] == "Seller":
             SellerFinanceHead = "John Doe"
             SellerSales[0] = "Bob Johnson"
             SellerSales[1] = "Alice Brown"
@@ -425,6 +425,9 @@ while True:
             qry='grant insert,delete on Product to %s;'
             mycur.execute(qry,(SellerSales[i],))
             sellerSignIn()
+          if ch.lower = "admin"
+        mycur.execute('grant all privileges on onlineshopping.* to root')
+            print('What do you want to do?')
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
         break
