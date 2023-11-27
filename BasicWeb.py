@@ -89,7 +89,19 @@ def custSignIn():
             while True:
                 ch = int(input('1) Products\n2) Cart\n3) My Orders\n4) Update Self Details\nEnter your column choice: '))
                 if ch == 1:
-                    viewProduct()
+                    while 1:
+                    print('''
+            1) all products
+            2) By Category
+            3) By price
+            4) By search
+            5) By Recommendation
+            6) Exit
+            ''')
+            cc= int(input('Enter your view: '))
+            if cc == 6:
+                break
+                    viewProduct(ask,cc)
                     cc = input('Do you want to select any product(Y/N): ')
                     if cc in yY:
                         selectProduct(ask)
@@ -176,17 +188,37 @@ def cartOperations(ch,iD):
 ##        tuple=
 ##        qry = 'INSERT into Order values(%d,%d,%,%,%d,%d,%d,%s,%d,%d);'
 ##        mycur.execute(qry,tuple)
-def viewProduct():
-    while 1:
-            print('''
-            1) all products
-            2) By Category
-            3) By price
-            4) By search
-            5) By Recommendation
-            6) Exit
-            ''')
-            cc= int(input('Enter your view: '))
+def recommendProducts(ID):
+    print('1) Recommend by price\n2) Recommend by ratings')
+    ch = int(input('Enter: '))
+    if ch == 1:
+        qry = 'SELECT ProductID from Cart where CustomerID = %s;'
+        mycur.execute(qry,(ID,)
+        ccc=mycur.fetchall()
+        cc = [t[0] for t in ccc]
+        for i in cc:
+            qry = 'SELECT ProductName,CategoryID from Product wehre productID = %s;'
+            mycur.execute(qry,(i,))
+            x = mycur.fetchall()
+            p = [t[0] for t in x] 
+            q = [t[1] for t in x]
+            pname= p[0]
+            catid = p[1]
+            print('Recommended products for %s', pname)
+            qry = 'SELECT MRP from Product where ProductID = %s;'
+            mycur.execute(qry,(i,)
+            d=mycur.fetchall()
+            cd = [t[0] for t in d]
+            mrp = cd[0]
+            c=mrp*2
+            d=mrp/2
+            qry = 'SELECT * from Product where MRP <= %s and MRP >= %s and CategoryID;'
+                    mycur.execute(qry,(c,d))
+                    dc=mycur.fetchall()
+                    for row in dc:
+                            print(row)
+    if ch == 2
+def viewProduct(ID,cc):
             if cc == 1:
                     qry= 'SELECT * from Product;'
                     mycur.execute(qry)
@@ -207,8 +239,9 @@ def viewProduct():
                                     print(row)
             if cc == 3:
                     c= int(input('Enter Max price: '))
-                    qry = 'SELECT * from Product where MRP <= %s;'
-                    mycur.execute(qry,(c,))
+                d = int(input('Enter Min price: '))
+                    qry = 'SELECT * from Product where MRP <= %s and MRP >= %s;'
+                    mycur.execute(qry,(c,d))
                     d=mycur.fetchall()
                     for row in d:
                             print(row)
