@@ -102,7 +102,6 @@ create table OrderItem(
 
 create table Payment(
     PaymentID numeric(10),
-    OrderId numeric(10),
     PaymentMode varchar(50),
     CustomerID numeric(10),
     DateOfPayment datetime(2),
