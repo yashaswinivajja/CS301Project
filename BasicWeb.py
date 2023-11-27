@@ -76,7 +76,7 @@ def custAcc(opt,custoID):
             else:
                 print('Enter correct choice')
             d=(d0[0], d1[0], d2[0], d3[0], d4[0], d5[0], d6[0], d7[0])
-            if (ch<9 & ch>0):
+            if (ch<9 and ch>0):
                 qry = 'DELETE from Customer where CustomerID = %s;'
                 mycur.execute(qry,(custoID,))
                 qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s);'
