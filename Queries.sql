@@ -112,7 +112,7 @@ DELETE from Order where OrderID = %s;
 -- to track purchase
 SELECT Orderstatus from Order where OrderID = %s;
 -- view reviews of a product
-SELECT * from Review where ProductID = %s group by ProductID;
+SELECT Description,Ratings from Review where ProductID = %s;
 -- to write a review
 INSERT into Review values(%s,%s,%s,%s,%s);
 --recommend similar to products in cart by price
