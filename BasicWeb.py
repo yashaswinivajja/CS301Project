@@ -151,6 +151,7 @@ def cartOperations(ch,iD):
 	if ch == 2:
 		delProduct(2,iD)
 	if ch == 3:
+		
 	if ch == 4:
 		qry = 'INSERT into Order values(%d,%d,%,%d,%d,%d,%s);'
 
@@ -216,7 +217,26 @@ def addProduct(choice,ID):
 			mycon.commit()
 			print("Product Added")
 	if choice == 2:
-		qry = '
+		tuple=()
+		cid = ID
+		pid = selectProduct(ID)
+		cartid=int(str(ID)[::-1])
+		qry = 'SELECT Quantity form Order where ProductID = %d;'
+		mycur.execute(qry,(pid,))
+		nump = mycur.fetchall()
+		if len(nump) == 0:
+			nump = nump[0]+1
+			tuple = (cartid, pid, cid, nump)
+			qry = 'INSERT into Cart values(%d,%d,%d,%d);'
+			mycur.execute(qry, tuple)
+			mycon.commit()
+		else:
+			nump= nump[0]+1
+			qry  = 'update Order set Quantity = %d where ProductID = %d;'
+			mycur.execute(qry,(nump,pid))
+			mycon.commit()
+		print('Product added to cart by one unit')
+		
 def delProduct(choice,ID):
 	if choice == 1:
 		delete=int(input("Enter ID of product to be deleted"))
@@ -224,7 +244,23 @@ def delProduct(choice,ID):
 		mycur.execute(qry, (delt,))
 		mycon.commit()
 		print("Product is deleted by Seller: %d" %ID)
-	if choice == 2:
+	if choice == 2: 
+		tuple= ()
+		pid = selectProduct(ID)
+		cartid=int(str(ID)[::-1])
+		qry = 'SELECT Quantity form Order where ProductID = %d;'
+		mycur.execute(qry,(pid,))
+		nump = mycur.fetchall()
+		nump--
+		if nump>0:
+			qry = 'update Cart set Quantity = %d where ProductID = %d;'
+			mycur.execute(qry,(nump, pid))
+			mycon.connect()
+		else:
+			qry = 'delete from Order where ProductID = %d;'
+			mycur(qry,(pid,))
+			mycon.commit()
+		print('Product deleted from cart by one unit')
 
 def addSeller(): 
 	n=int(input('Enter number of sellers to add: '))
@@ -279,9 +315,9 @@ while True:
 	try:
 		if ch.lower() == "Customer":
 			print(" 1. Create Account\n2. Sign In into existing account")
-			choice = input('enter: ')
+			choice = int(input('enter: '))
 			if choice == '1':
-				custAcc(0)
+				custAcc(0,0)
 			elif choice == '2':
 				custSignIn()
 			else:
