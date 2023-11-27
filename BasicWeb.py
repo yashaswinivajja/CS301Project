@@ -102,28 +102,28 @@ def custSignIn():
             if cc == 6:
                 break
                     viewProduct(ask,cc)
-                    cc = input('Do you want to select any product(Y/N): ')
-                    if cc in yY:
+                    cd = input('Do you want to select any product(Y/N): ')
+                    if cd in yY:
                         selectProduct(ask)
                         ccc = int(input('1)Just View\n2)Add to cart\nEnter: '))
                         if ccc == 2:
-                            cartOperations(1)
+                            cartOperations(1,ask)
                     else: 
                         continue
                 if ch == 2:
                     cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
-                    cartOperations(cc)
+                    cartOperations(cc,ask)
                 if ch == 3:
-                    myPurchase()
+                    myPurchase(ask)
                 if ch == 4:
-                    custAcc(1)
+                    custAcc(1,ask)
                 if ch == 5:
                         break
     except Exception:
         print('Enter correct choice')
                     
                 
-def myPurchase():
+def myPurchase(ID):
     print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
     while True:
             ch = int(input('Enter your choice:' ))
@@ -135,17 +135,18 @@ def myPurchase():
                         print(row)
             if ch == 2:
                 p = int(input('Enter the Order ID of the order you want to cancel purchase: '))
-                qry = 'DELETE from Order where OrderID = %d;'
+                qry = 'DELETE from Order where OrderID = %s;'
                 mycur.execute(qry,(p,))
                 print('Purchase cancelled!! Transaction will be done to your account in max two working days')
             if ch == 3:
-                    contnue
+                    cartOperations(4,ID)
             if ch == 4:
                 p = int(input('Enter the Order ID of the order you want to track purchase: '))
-                qry = 'SELECT Orderstatus from Order where OrderID = %d;'
+                qry = 'SELECT Orderstatus from Order where OrderID = %s;'
                 mycur.execute(qry,(p,))
                 d = mycur.fetchall()
-                for row in d:
+                td = [ids[0] for ids in d]
+                for row in td:
                     print(row)
             if ch == 5:
                 break
@@ -172,22 +173,35 @@ def review():
         mycur.execute(qry,tuple)
 
 def cartOperations(ch,iD):
+    cartid=int(str(iD)[::-1])
     if ch == 1:
         addProduct(2,iD)
     if ch == 2:
         delProduct(2,iD)
     if ch == 3:
-        cartid=int(str(iD)[::-1])
         qry = 'SELECT * from Cart where CartID= %d;'
         mycur.execute(qry,(cartid,))
         d = mycur.fetchall()
         mycon.commit()
         for row in d:
             print(row)
-##    if ch == 4:
-##        tuple=
-##        qry = 'INSERT into Order values(%d,%d,%,%,%d,%d,%d,%s,%d,%d);'
-##        mycur.execute(qry,tuple)
+    if ch == 4:
+        tuple=()
+        oid = AB+cartid
+        ono = cartid-1
+        cdate=datetime.now()
+        odate = cdate.strftime("%d/%m/%Y")
+        welater= cdate+timedelta(days=7)
+        shdate = welater.strftime("%d/%m/%Y") 
+        mycur.execute('SELECT productID,MRP,Quantity, (MRP*Quantity) as totalAmount from cart;')
+        for row in res:
+            pid,mrp,qua,oamt= row
+        add = int(input('Enter AddressID of your location: '))
+        ostatus="booked"
+        tuple=(oid,ono,shdate,odate,oamt,cartid,ID,ostatus)
+        qry = 'INSERT into Order values(%s,%s,%s,%,%s,%s,%s,%s,%s,%s);'
+        mycur.execute(qry,tuple)
+
 def recommendedProducts(ID):
     print('1) Recommend by price\n2) Recommend by ratings')
     ch = int(input('Enter: '))
@@ -217,7 +231,13 @@ def recommendedProducts(ID):
                     dc=mycur.fetchall()
                     for row in dc:
                             print(row)
-    if ch == 2
+    if ch == 2:
+        qry = 'SELECT ProductID from Cart where CustomerID = %s;'
+        mycur.execute(qry,(ID,)
+        ccc=mycur.fetchall()
+        cc = [t[0] for t in ccc]
+        for i in cc:
+            
 def viewProduct(ID,cc):
             if cc == 1:
                     qry= 'SELECT * from Product;'
