@@ -64,16 +64,27 @@ def myPurchase():
 	if ch == 5:
 		break
 	
-def writeReview():
-
+def review():
+	ch = int(input('1) View reviews for a product\n2) Write review for a product\nEnter you choice: ')
+	if ch == 1:
+		p = int(input("Enter the productID for which view reviews: "))
+		qry = 'SELECT * from Review where ProductID = %d group by ProductID;'
+		mycur.execute(qry,(p,))
+		d = mycur.fetchall()
+		for row in d:
+			print(row)
+	if ch == 2:
+		
 def cartOperations():
-	ch=int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now')
+	ch=int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now")
 	if ch == 1:
 		addProduct(2)
 	if ch == 2:
 		delProduct(2)
 	if ch == 3:
-		
+	if ch == 4:
+		qry = 'INSERT into Order values(%d,%d,%,%d,%d,%d,%s);'
+
 def viewProduct():
 	while 1:
 	print('''
@@ -119,21 +130,21 @@ def viewProduct():
 
 def addProduct(choice):
 	if choice == 1:
-	n=int(input('Enter number of products to be inserted: '))
-	for j in range(n):
-		t=()
-		proid = int(input('Product ID : '))
-		prname = input("Product Name: ")
-		prsell = int(input('SellerID: '))
-		pprice = int(input('MRP : '))
-		prcat = int(input('CategoryID: '))
-		pstk = input('Stock : ')
-		pbrand = input('Brand: ')
-		t = (proid, prname, prsell, pprice, prcat, pstk, pbrand)
-		qry = 'INSERT into Product values(%d,%s,%d,%d,%d,%s,%s);'
-		mycur.execute(qry, t)
-		mycon.commit()
-		print("Product Added")
+		n=int(input('Enter number of products to be inserted: '))
+		for j in range(n):
+			t=()
+			proid = int(input('Product ID : '))
+			prname = input("Product Name: ")
+			prsell = int(input('SellerID: '))
+			pprice = int(input('MRP : '))
+			prcat = int(input('CategoryID: '))
+			pstk = input('Stock : ')
+			pbrand = input('Brand: ')
+			t = (proid, prname, prsell, pprice, prcat, pstk, pbrand)
+			qry = 'INSERT into Product values(%d,%s,%d,%d,%d,%s,%s);'
+			mycur.execute(qry, t)
+			mycon.commit()
+			print("Product Added")
 	if choice == 2:
 	
 def delProduct(choice):
