@@ -4,43 +4,42 @@ mycur=mycon.cursor
 
 def check():
 	qry='SELECT CustomerID from Customer;'
-  	mycur.execute(qry)
+	mycur.execute(qry)
 	d=mycur.fetchall()
-  	cids = [ids[0] for ids in d]
-  	mycon.commit()
-  	return cids
-
+	cids = [ids[0] for ids in d]
+	mycon.commit()
+	return cids
 def custAcc(opt,custoID):
 	if opt == 0:
-  		list_of_ids = check()
-  		i=True
-  		while i:
-    			custid = int(input('Enter your Customer id: '))
-    		if custid in list_of_ids:
-      			print('Customer ID already exists. Please choose another')
-    		else:
-      			print('* indicates mmandatory')
-      			cdetails=()
-      			cfname= input('Enter First Name*: ')
-      			cmname= input('Enter Middle Name: ')
-      			clname= input('Enter Last Name: ')
-      			cmail= input('Enter MailID: ')
-      			cdob= input('Enter Date of Birth: ')
-      			cphone= int(input('Enter Phone number*: '))
-      			cage= int(input('Enter Age: '))
-      			cdetails=(custid, cfname, cmname, clname, cmail, cdob, cphone, cage)
-      			qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%s,%d,%d);'
-      			mycur.execute(qry,cdetails)
-      			mycon.commit()
-      			print('Customer details entered')
-     			i=False
+		list_of_ids = check()
+		i = True
+		while i:
+			custid = int(input('Enter your Customer id: '))
+			if custid in list_of_ids:
+				print('Customer ID already exists. Please choose another')
+			else:
+				print('* indicates mmandatory')
+				cdetails=()
+				cfname= input('Enter First Name*: ')
+				cmname= input('Enter Middle Name: ')
+				clname= input('Enter Last Name: ')
+				cmail= input('Enter MailID: ')
+				cdob= input('Enter Date of Birth: ')
+				cphone= int(input('Enter Phone number*: '))
+				cage= int(input('Enter Age: '))
+				cdetails=(custid, cfname, cmname, clname, cmail, cdob, cphone, cage)
+				qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%s,%d,%d);'
+				mycur.execute(qry,cdetails)
+				mycon.commit()
+				print('Customer details entered')
+				i=False
 	if opt == 1:
 		qry = 'SELECT * from Customer where customerID = %d;'
 		mycur.execute(qry,(custoID,))
 		d = mycur.fetchall()
 		d[0] = custoID
 		print('1)First Name\n2) Middle Name\n3) Last Name\n4) MailID\n5) Date of Birth\n6)Phone number\n7)Age\n8)No edit')
-		p = int(input('Enter number of details to edit: ')
+		p = int(input('Enter number of details to edit: '))
 		for i in range(p):
 			ch = input('Enter the detail number to edit: ')
 			if ch == 1:
@@ -61,13 +60,13 @@ def custAcc(opt,custoID):
 				break
 			else:
 				print('Enter correct choice')
-			if ch<9 && ch>0:
+			if (ch<9 & ch>0):
 				qry = 'DELETE from Customer where CustomerID = %d;'
 				mycur.execute(qry,(custoID,))
-				qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%d,%d)
+				qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%d,%d);'
 				mycur.execute(qry,d)
 		print('Edit details completed')
-		
+			
 def custSignIn():
 	try:
 		ask = int(input('Enter customer ID to sign in : '))
@@ -86,7 +85,7 @@ def custSignIn():
 					else: 
 						continue
 				if ch == 2:
-					cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now")
+					cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
 						 cartOperations(cc)
 				if ch == 3:
 					myPurchase()
@@ -107,7 +106,7 @@ def myPurchase():
 		for row in d:
 			print(row)
 	if ch == 2:
-		p = int(input('Enter the Order ID of the order you want to cancel purchase: ')
+		p = int(input('Enter the Order ID of the order you want to cancel purchase: '))
 		qry = 'DELETE from Order where OrderID = %d;'
 		mycur.execute(qry,(p,))
 		print('Purchase cancelled!! Transaction will be done to your account in max two working days')
