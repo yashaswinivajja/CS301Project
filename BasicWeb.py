@@ -117,17 +117,17 @@ def selectProduct(custID):
     pid = int(input('Enter the ProductID of the product selected: '))
     return pid
     
-def review():
-    ch = int(input('1) View reviews for a product\n2) Write review for a product\n3)Just viewEnter you choice: '))
+def review(ID):
+    ch = int(input('1) View reviews for a product\n2) Write review for a product\n3)Just view\nEnter you choice: '))
     if ch == 1:
              p = int(input("Enter the productID for which view reviews: "))
-             qry = 'SELECT * from Review where ProductID = %s group by ProductID;'
+             qry = 'SELECT Description,Ratings from Review where ProductID = %s;'
              mycur.execute(qry,(p,))
              d = mycur.fetchall()
              for row in d:
                      print(row)
     if ch == 2:
-        pid = selectProduct(cid)
+        pid = selectProduct(ID)
         p = input('Enter your Review description: ')
         q = int(input('Enter your Ratings: '))
         tuple = (rid, p, q, pid, cid)
