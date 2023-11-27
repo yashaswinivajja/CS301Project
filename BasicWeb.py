@@ -145,11 +145,11 @@ def review():
 		qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
 		mycur.execute(qry,tuple)
 
-def cartOperations(ch):
+def cartOperations(ch,iD):
 	if ch == 1:
-		addProduct(2)
+		addProduct(2,iD)
 	if ch == 2:
-		delProduct(2)
+		delProduct(2,iD)
 	if ch == 3:
 	if ch == 4:
 		qry = 'INSERT into Order values(%d,%d,%,%d,%d,%d,%s);'
@@ -197,14 +197,15 @@ def viewProduct():
 	if cc== 5:
 		break
 
-def addProduct(choice):
+def addProduct(choice,ID):
 	if choice == 1:
 		n=int(input('Enter number of products to be inserted: '))
 		for j in range(n):
 			t=()
 			proid = int(input('Product ID : '))
 			prname = input("Product Name: ")
-			prsell = int(input('SellerID: '))
+			prsell = ask
+			print("SellerID: %d" %ID))
 			pprice = int(input('MRP : '))
 			prcat = int(input('CategoryID: '))
 			pstk = input('Stock : ')
@@ -215,14 +216,14 @@ def addProduct(choice):
 			mycon.commit()
 			print("Product Added")
 	if choice == 2:
-		
-def delProduct(choice):
+		qry = '
+def delProduct(choice,ID):
 	if choice == 1:
 		delete=int(input("Enter ID of product to be deleted"))
-		qry = 'DELETE from Product where ProductID=%d;'
+		qry = 'DELETE from Product where ProductID = %d;'
 		mycur.execute(qry, (delt,))
 		mycon.commit()
-		print("Product is deleted")
+		print("Product is deleted by Seller: %d" %ID)
 	if choice == 2:
 
 def addSeller(): 
@@ -254,9 +255,9 @@ def sellerSignIn():
 			while True:
 				ccc = input("1. Add a New Product \n2. Delete a product\n3. View stock\n4. Collection\nEnter 'Back' to logout: ")
 				if ccc=='1':
-					addProduct(1)
+					addProduct(1,ask)
 				if ccc='2':
-					deleteProduct(1)
+					deleteProduct(1,ask)
 				if ccc='3':
 					pid = int(input('Enter ProductID to view stock: '))
 					qry='SELECT stock from Product where ProductID = %d;'
