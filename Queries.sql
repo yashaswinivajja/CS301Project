@@ -155,3 +155,4 @@ SELECT SellerID from Seller;
 SELECT stock from Product where ProductID = %s;
 --grants
 grant select on Product(stock) to %s;
+grant all privileges on onlineshopping.* to root
