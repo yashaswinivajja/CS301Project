@@ -17,7 +17,7 @@ def custAcc(opt,custoID):
         list_of_ids = check()
         i = True
         while i:
-            custid = int(input('Enter your Customer id: '))
+            custid = int(input('Enter your a number (max no. of digits 10) for your id: '))
             if custid in list_of_ids:
                 print('Customer ID already exists. Please choose another')
             else:
@@ -41,7 +41,7 @@ def custAcc(opt,custoID):
                 print('Customer details entered')
                 i=False
     if opt == 1:
-        qry = 'SELECT * from Customer where customerID = %d;'
+        qry = 'SELECT * from Customer where customerID = %s;'
         mycur.execute(qry,(custoID,))
         d = mycur.fetchall()
         d[0] = custoID
@@ -68,9 +68,9 @@ def custAcc(opt,custoID):
             else:
                 print('Enter correct choice')
             if (ch<9 & ch>0):
-                qry = 'DELETE from Customer where CustomerID = %d;'
+                qry = 'DELETE from Customer where CustomerID = %s;'
                 mycur.execute(qry,(custoID,))
-                qry = 'INSERT into Customer values(%d,%s,%s,%s,%s,%d,%d);'
+                qry = 'INSERT into Customer values(%s,%s,%s,%s,%s,%s,%s);'
                 mycur.execute(qry,d)
                 mycon.commit()
         print('Edit details completed')
@@ -79,19 +79,21 @@ def myPurchase(ID):
     print("1)View purchases\n2)Cancel Purchase\n3)Reorder\n4)track purchase\n5)Exit")
     while True:
             ch = int(input('Enter your choice:' ))
-            if ch==1:
+            if ch == 1:
                 qry = 'SELECT * from Order, Orderitem where Order.OrderID = Orderitem.OrderID;'
                 mycur.execute(qry)
                 d = mycur.fetchall()
                 for row in d:
-                        print(row)
+                    print(row)
             if ch == 2:
                 p = int(input('Enter the Order ID of the order you want to cancel purchase: '))
                 qry = 'DELETE from Order where OrderID = %s;'
                 mycur.execute(qry,(p,))
                 print('Purchase cancelled!! Transaction will be done to your account in max two working days')
             if ch == 3:
-                
+                print('Not yet devised')
+                continue
+            if ch == 4:
                 p = int(input('Enter the Order ID of the order you want to track purchase: '))
                 qry = 'SELECT Orderstatus from Order where OrderID = %s;'
                 mycur.execute(qry,(p,))
@@ -110,7 +112,7 @@ def review():
     ch = int(input('1) View reviews for a product\n2) Write review for a product\n3)Just viewEnter you choice: '))
     if ch == 1:
              p = int(input("Enter the productID for which view reviews: "))
-             qry = 'SELECT * from Review where ProductID = %d group by ProductID;'
+             qry = 'SELECT * from Review where ProductID = %s group by ProductID;'
              mycur.execute(qry,(p,))
              d = mycur.fetchall()
              for row in d:
@@ -120,7 +122,7 @@ def review():
         p = input('Enter your Review description: ')
         q = int(input('Enter your Ratings: '))
         tuple = (rid, p, q, pid, cid)
-        qry = 'INSERT into Review values(%d,%s,%d,%d,%d);'
+        qry = 'INSERT into Review values(%s,%s,%s,%s,%s);'
         mycur.execute(qry,tuple)
     if ch == 3:
         pid = int(input('Enter the ProductID of the product selected: '))
@@ -130,7 +132,7 @@ def recommendedProducts(ID):
     ch = int(input('Enter: '))
     if ch == 1:
         qry = 'SELECT ProductID from Cart where CustomerID = %s;'
-        mycur.execute(qry,(ID,)
+        mycur.execute(qry,(ID,))
         ccc=mycur.fetchall()
         cc = [t[0] for t in ccc]
         for i in cc:
@@ -143,62 +145,62 @@ def recommendedProducts(ID):
             catid = p[1]
             print('Recommended products for %s', pname)
             qry = 'SELECT MRP from Product where ProductID = %s;'
-            mycur.execute(qry,(i,)
+            mycur.execute(qry,(i,))
             d=mycur.fetchall()
             cd = [t[0] for t in d]
             mrp = cd[0]
             c=mrp*2
             d=mrp/2
             qry = 'SELECT * from Product where MRP <= %s and MRP >= %s and CategoryID;'
-                    mycur.execute(qry,(c,d))
-                    dc=mycur.fetchall()
-                    for row in dc:
-                            print(row)
+            mycur.execute(qry,(c,d))
+            dc=mycur.fetchall()
+            for row in dc:
+                print(row)
     if ch == 2:
         qry = 'SELECT ProductID from Cart where CustomerID = %s;'
-        mycur.execute(qry,(ID,)
+        mycur.execute(qry,(ID,))
         ccc=mycur.fetchall()
         cc = [t[0] for t in ccc]
-        for i in cc:
+        #for i in cc:
             
 def viewProduct(ID,cc):
-            if cc == 1:
-                    qry= 'SELECT * from Product;'
-                    mycur.execute(qry)
-                    d = mycur.fetchall()
-                    for row in d:
-                            print(row)
-            if cc == 2:
-                    c=input('Enter the Category: ')
-                    qry='SELECT CategoryID from Category where CategoryName = %s;'
-                    mycur.execute(qry,(c,))
-                    ccc=mycur.fetchall()
-                    ch = [t[0] for t in ccc]
-                    if ch:
-                            qry= 'SELECT * from Product where CategoryID = %s group by category;'
-                            mycur.execute(qry,(ch[0],))
-                            d=mycur.fetchall()
-                            for row in d:
-                                    print(row)
-            if cc == 3:
-                    c= int(input('Enter Max price: '))
-                d = int(input('Enter Min price: '))
-                    qry = 'SELECT * from Product where MRP <= %s and MRP >= %s;'
-                    mycur.execute(qry,(c,d))
-                    d=mycur.fetchall()
-                    for row in d:
-                            print(row)
-            if cc == 4:
-                    c=input('Enter Product Name: ')
-                    qry= 'SELECT * from Product where Product name = %s;'
-                    mycur.execute(qry,c)
-                    d=mycur.fetchall()
-                    for row in d:
-                            print(row)
-            if cc == 5:
-                recommendedProducts(ID)
-            if cc == 6:
-                print('Exit')
+    if cc == 1:
+        qry= 'SELECT * from Product;'
+        mycur.execute(qry)
+        d = mycur.fetchall()
+        for row in d:
+            print(row)
+    if cc == 2:
+        c=input('Enter the Category: ')
+        qry='SELECT CategoryID from Category where CategoryName = %s;'
+        mycur.execute(qry,(c,))
+        ccc=mycur.fetchall()
+        ch = [t[0] for t in ccc]
+        if ch:
+            qry= 'SELECT * from Product where CategoryID = %s;'
+            mycur.execute(qry,(ch[0],))
+            d=mycur.fetchall()
+            for row in d:
+                print(row)
+    if cc == 3:
+        c= int(input('Enter Max price: '))
+        d = int(input('Enter Min price: '))
+        qry = 'SELECT * from Product where MRP <= %s and MRP >= %s;'
+        mycur.execute(qry,(c,d))
+        d=mycur.fetchall()
+        for row in d:
+            print(row)
+    if cc == 4:
+        c=input('Enter Product Name: ')
+        qry= 'SELECT * from Product where ProductName = %s;'
+        mycur.execute(qry,(c,))
+        d=mycur.fetchall()
+        for row in d:
+            print(row)
+    if cc == 5:
+        recommendedProducts()
+    if cc == 6:
+        print('Exit')
 
 def addProduct(choice,ID):
     if choice == 1:
@@ -214,7 +216,7 @@ def addProduct(choice,ID):
             pstk = input('Stock : ')
             pbrand = input('Brand: ')
             t = (proid, prname, prsell, pprice, prcat, pstk, pbrand)
-            qry = 'INSERT into Product values(%d,%s,%d,%d,%d,%s,%s);'
+            qry = 'INSERT into Product values(%s,%s,%s,%s,%s,%s,%s);'
             mycur.execute(qry, t)
             mycon.commit()
             print("Product Added")
@@ -223,18 +225,18 @@ def addProduct(choice,ID):
         cid = ID
         pid = selectProduct(ID)
         cartid=int(str(ID)[::-1])
-        qry = 'SELECT Quantity form Order where ProductID = %d;'
+        qry = 'SELECT Quantity form Order where ProductID = %s;'
         mycur.execute(qry,(pid,))
         nump = mycur.fetchall()
         if len(nump) == 0:
             nump = nump[0]+1
             tuple = (cartid, pid, cid, nump)
-            qry = 'INSERT into Cart values(%d,%d,%d,%d);'
+            qry = 'INSERT into Cart values(%s,%s,%s,%s);'
             mycur.execute(qry, tuple)
             mycon.commit()
         else:
             nump= nump[0]+1
-            qry  = 'update Order set Quantity = %d where ProductID = %d;'
+            qry  = 'update Order set Quantity = %s where ProductID = %s;'
             mycur.execute(qry,(nump,pid))
             mycon.commit()
         print('Product added to cart by one unit')
@@ -242,24 +244,24 @@ def addProduct(choice,ID):
 def delProduct(choice,ID):
     if choice == 1:
         delete=int(input("Enter ID of product to be deleted"))
-        qry = 'DELETE from Product where ProductID = %d;'
+        qry = 'DELETE from Product where ProductID = %s;'
         mycur.execute(qry, (delt,))
         mycon.commit()
-        print("Product is deleted by Seller: %d", ID)
+        print("Product is deleted by Seller: %s", ID)
     if choice == 2: 
         tuple= ()
         pid = selectProduct(ID)
         cartid=int(str(ID)[::-1])
-        qry = 'SELECT Quantity form Order where ProductID = %d;'
+        qry = 'SELECT Quantity form Order where ProductID = %s;'
         mycur.execute(qry,(pid,))
         nump = mycur.fetchall()
         nump-=1
         if nump>0:
-            qry = 'update Cart set Quantity = %d where ProductID = %d;'
+            qry = 'update Cart set Quantity = %s where ProductID = %s;'
             mycur.execute(qry,(nump, pid))
             mycon.connect()
         else:
-            qry = 'delete from Order where ProductID = %d;'
+            qry = 'delete from Order where ProductID = %s;'
             mycur(qry,(pid,))
             mycon.commit()
         print('Product deleted from cart by one unit')
@@ -271,7 +273,7 @@ def cartOperations(ch,iD):
     if ch == 2:
         delProduct(2,iD)
     if ch == 3:
-        qry = 'SELECT * from Cart where CartID= %d;'
+        qry = 'SELECT * from Cart where CartID= %s;'
         mycur.execute(qry,(cartid,))
         d = mycur.fetchall()
         mycon.commit()
@@ -301,7 +303,6 @@ def cartOperations(ch,iD):
         mycur.execute(qry,tuple)
         
 def custSignIn():
-    try:
         ask = int(input('Enter customer ID to sign in : '))
         list_of_ids = check()
 
@@ -310,26 +311,26 @@ def custSignIn():
                 ch = int(input('1) Products\n2) Cart\n3) My Orders\n4) Update Self Details\nEnter your column choice: '))
                 if ch == 1:
                     while 1:
-                    print('''
-            1) all products
-            2) By Category
-            3) By price
-            4) By search
-            5) By Recommendation
-            6) Exit
-            ''')
-            cc= int(input('Enter your view: '))
-            if cc == 6:
-                break
-                    viewProduct(ask,cc)
-                    cd = input('Do you want to select any product(Y/N): ')
-                    if cd in yY:
-                        review()
-                        ccc = input('Add to cart(Y/N)Enter: ')
-                        if ccc in yY:
-                            cartOperations(1,ask)
-                    else: 
-                        continue
+                        print('''
+                        1) all products
+                        2) By Category
+                        3) By price
+                        4) By search
+                        5) By Recommendation
+                        6) Exit
+                        ''')
+                        cc= int(input('Enter your view: '))
+                        if cc == 6:
+                            break
+                        viewProduct(ask,cc)
+                        cd = input('Do you want to select any product(Y/N): ')
+                        if cd in 'yY':
+                            review()
+                            ccc = input('Add to cart(Y/N)Enter: ')
+                            if ccc in yY:
+                                cartOperations(1,ask)
+                        else: 
+                            continue
                 if ch == 2:
                     cc = int(input("Enter your choice:\n1)Add a product\n2)Delete a product\n3)View the cart\n4)Buy now"))
                     cartOperations(cc,ask)
@@ -341,9 +342,7 @@ def custSignIn():
                     custAcc(1,ask)
                     continue
                 if ch == 5:
-                        break
-    except Exception:
-        print('Enter correct choice')
+                    break
         
 def addSeller(): 
     n=int(input('Enter number of sellers to add: '))
@@ -354,7 +353,7 @@ def addSeller():
         phno = int(input('Enter phone number: '))
         tots = int(input('Enter total sales: '))
         tuple = (sid, name, phno, tots)
-        qry = 'INSERT into Seller values(%d,%s,%d,%d);'
+        qry = 'INSERT into Seller values(%s,%s,%s,%s);'
         mycur.execute(qry,tuple)
         mycon.commit()
         print("Seller added")
@@ -394,20 +393,17 @@ print('WELCOME !')
 while True:
     print("Choose your role: Customer\SellerSales\SellerFinance")
     ch = input('Enter: ')
-    try:
-        if ch.lower() == "customer":
-            print("1. Create Account\n2. Sign In into existing account")
-            choice = int(input('enter: '))
-            if choice == 1:
-                custAcc(0,0)
-            elif choice == 2:
-                custSignIn()
-            else:
-                print('Enter correct choice')
+    if ch.lower() == "customer":
+        print(" 1. Create Account\n2. Sign In into existing account")
+        choice = int(input('enter: '))
+        if choice == 1:
+            custAcc(0,0)
+        elif choice == 2:
+            custSignIn()
+        else:
+            print('Enter correct choice')
         #if ch.lower() == "Seller":
             
-        elif ch.lower() == "e":
-            print("Thankyou for visiting !")
-            break
-    except Exception:
-        print('Give the right input')
+    elif ch.lower() == "e":
+        print("Thankyou for visiting !")
+        break
