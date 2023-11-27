@@ -198,9 +198,10 @@ def viewProduct():
                     qry='SELECT CategoryID from Category where CategoryName = %s;'
                     mycur.execute(qry,(c,))
                     ccc=mycur.fetchall()
-                    if ccc!= NULL:
+                    ch = [t[0] for t in ccc]
+                    if ch:
                             qry= 'SELECT * from Product where CategoryID = %s group by category;'
-                            mycur.execute(qry,(ccc,))
+                            mycur.execute(qry,(ch[0],))
                             d=mycur.fetchall()
                             for row in d:
                                     print(row)
