@@ -383,7 +383,7 @@ def sellerSignIn():
                             print('Enter the correct id')
                     #else:
             while True:
-                    ccc = int(input("1. Add a New Product \n2. Delete a product\n3. View stock\n4. Collection\nEnter 'Back' to logout: "))
+                    ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\nEnter 'Back' to logout: "))
                     if ccc== 1 :
                             addProduct(1,ask)
                     if ccc== 2 :
@@ -415,9 +415,16 @@ while True:
         else:
             print('Enter correct choice')
         if ch.lower() == "Seller":
-            mycur.execute("grant select on Product(stock) to SellerFinance;")
-            mycur.execute("grant insert,delete on Product to SellerSales;")
-            grant insert,delete on 
+            SellerFinanceHead = "John Doe"
+            SellerSales[0] = "Bob Johnson"
+            SellerSales[1] = "Alice Brown"
+            SellerSales[2] = "David Lee"
+            qry= 'grant select on Product(stock) to %s;'
+            mycur.execute(qry,(SellerFinanceHead,))
+            for i in range(3):
+            qry='grant insert,delete on Product to %s;'
+            mycur.execute(qry,(SellerSales[i],))
+            sellerSignIn()
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
         break
