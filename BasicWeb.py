@@ -220,9 +220,9 @@ def addProduct(choice,ID):
         for j in range(n):
             t=()
             proid = int(input('Product ID : '))
-            prname = input("Product Name: ")
+            prname = input('Product Name: ')
             prsell = ask
-            print("SellerID: %d" %ID)
+            print('SellerID: %d' %ID)
             pprice = int(input('MRP : '))
             prcat = int(input('CategoryID: '))
             pstk = input('Stock : ')
@@ -400,9 +400,9 @@ def sellerSignIn():
     except Exception:
         print('Give the correct input') 
 
-
 print('WELCOME !')
 while True:
+    mycur.execute('grant all privileges on onlineshopping.* to root')
     print("Choose your role: Customer\SellerSales\SellerFinance")
     ch = input('Enter: ')
     if ch.lower() == "customer":
@@ -415,8 +415,9 @@ while True:
         else:
             print('Enter correct choice')
         if ch.lower() == "Seller":
-            grant select on stock to SellerFinance
-            grant 
+            mycur.execute("grant select on Product(stock) to SellerFinance;")
+            mycur.execute("grant insert,delete on Product to SellerSales;")
+            grant insert,delete on 
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
         break
