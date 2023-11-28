@@ -1,7 +1,7 @@
 import mysql.connector
 from datetime import datetime 
 import random
-mycon=mysql.connector.connect(host='localhost', user='root', password='root', database='Shopping')
+mycon=mysql.connector.connect(host='localhost', user='root', password='root', database='Ecommerce')
 mycur=mycon.cursor()
 
 def check():
@@ -132,7 +132,7 @@ def review(ID):
         rid = pid+ID
         p = input('Enter your Review description: ')
         q = input('Enter your Ratings: ')
-        tuple = (rid, p, q, pid, cid)
+        tuple = (rid, p, q, pid, ID)
         qry = 'INSERT into Review values(%s,%s,%s,%s,%s);'
         mycur.execute(qry,tuple)
         mycon.commit()
@@ -221,7 +221,7 @@ def addProduct(choice,ID):
             t=()
             proid = int(input('Product ID : '))
             prname = input('Product Name: ')
-            prsell = ask
+            prsell = ID
             print('SellerID: %d' %ID)
             pprice = int(input('MRP : '))
             prcat = int(input('CategoryID: '))
@@ -337,9 +337,9 @@ def custSignIn():
                         viewProduct(ask,cc)
                         cd = input('Do you want to select any product(Y/N): ')
                         if cd in 'yY':
-                            review()
+                            review(ask)
                             ccc = input('Add to cart(Y/N)Enter: ')
-                            if ccc in yY:
+                            if ccc in 'yY':
                                 cartOperations(1,ask)
                         else: 
                             continue
@@ -354,6 +354,7 @@ def custSignIn():
                     custAcc(1,ask)
                     continue
                 if ch == 5:
+                    print("Logout\n")
                     break
         
 def addSeller(): 
@@ -371,42 +372,37 @@ def addSeller():
         print("Seller added")
     
 def sellerSignIn():
-    try:
             ask = int(input('Enter ID to sign in to the account: '))
             qry = 'SELECT SellerID from Seller;'
             mycur.execute(qry)
             d = mycur.fetchall()
-            d = [t[0] for t in d]
-            lis = []
-            for i in d:
-                    lis.append(i[0])
-                    if ask not in lis:
-                            print('Enter the correct id')
-                    else:
-                        while True:
-                            ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\nEnter 'Back' to logout: "))
-                            if ccc== 1 :
-                                addProduct(1,ask)
-                            if ccc== 2 :
-                                deleteProduct(1,ask)
-                            if ccc== 3:
-                                pid = int(input('Enter ProductID to view stock: '))
-                                qry='SELECT stock from Product where ProductID = %d;'
-                                mycur.execute(qry,pid)
-                                stk = mycur.fetchall()
-                                print('Stock of the product with  productID:%d = %s', pid, stk)
-                            elif ccc.lower() == 'back':
-                                print("Successfully logged out ")
-                            break
-    except Exception:
-        print('Give the correct input') 
+            dt = [t[0] for t in d]
+            if ask not in dt:
+                    print('Enter the correct id')
+            else:
+                while True:
+                    ccc = int(input("1. Add a New Product\n2. Delete a product\n3. View stock\n4. Back\nEnter: "))
+                    if ccc== 1 :
+                        addProduct(1,ask)
+                    if ccc== 2 :
+                        deleteProduct(1,ask)
+                    if ccc== 3:
+                        pid = int(input('Enter ProductID to view stock: '))
+                        qry='SELECT stock from Product where ProductID = %s;'
+                        mycur.execute(qry,(pid,))
+                        stk = mycur.fetchall()
+                        stock = [t[0] for t in stk]
+                        print('Stock of the product with  productID ' + str(pid) + ' is '+ stock[0])
+                    if ccc ==4 :
+                        print("Successfully logged out ")
+                        break 
 
 print('WELCOME !')
 while True:
     print("Choose your role: 1)Customer 2)SellerSales\SellerFinance 3)Admin")
     ch = input('Enter: ')
     if ch.lower() == "customer":
-        print(" 1. Create Account\n2. Sign In into existing account")
+        print("1. Create Account\n2. Sign In into existing account")
         choice = int(input('enter: '))
         if choice == 1:
             custAcc(0,0)
@@ -414,20 +410,21 @@ while True:
             custSignIn()
         else:
             print('Enter correct choice')
-        if ch.lower()[:6] == "Seller":
-            SellerFinanceHead = "John Doe"
-            SellerSales[0] = "Bob Johnson"
-            SellerSales[1] = "Alice Brown"
-            SellerSales[2] = "David Lee"
-            qry= 'grant select on Product(stock) to %s;'
-            mycur.execute(qry,(SellerFinanceHead,))
-            for i in range(3):
-                qry='grant insert,delete on Product to %s;'
-                mycur.execute(qry,(SellerSales[i],))
-                sellerSignIn()
-        if ch.lower == "admin":
-            mycur.execute('grant all privileges on onlineshopping.* to root')
-            print('What do you want to do?')
+    if ch.lower()[:6] == "seller":
+##        SellerFinanceHead = 'John Doe'
+##        SellerSales = []
+##        SellerSales.append("Bob Johnson")
+##        SellerSales.append("Alice Brown")
+##        SellerSales.append("David Lee")
+##        qry= 'grant select on Product(stock) to %s;'
+##        mycur.execute(qry,(SellerFinanceHead,))
+##        for i in range(3):
+##            qry='grant insert,delete on Product to %s;'
+##            mycur.execute(qry,(SellerSales[i],))
+            sellerSignIn()
+    if ch.lower() == "admin":
+        addSeller()
+        #mycur.execute('grant all privileges on onlineshopping.* to root')
     elif ch.lower() == "e":
         print("Thankyou for visiting !")
         break
