@@ -1,5 +1,5 @@
-create database Shopping;
-use Shopping;
+create database Ecommerce;
+use Ecommerce;
 
 create table Category(
     CategoryID numeric(10),
